@@ -9,9 +9,9 @@
 window.UMMAT_CONFIG = {
   // 1. AGENCY DETAILS & CONTACT INFO
   agency: {
-    name: "Ummat Hajj Umrah",
-    subName: "Tours & Travels India",
-    fullName: "Ummat Hajj Umrah Tours & Travels",
+    name: "Ummat International",
+    subName: "Hajj & Umrah Tours & Travels India",
+    fullName: "Ummat International Tours & Travels",
     tagline: "Your Trusted Companion for a Blessed Journey to Makkah & Madinah",
     arabicBismillah: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
     arabicCalligraphy: "لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ",
