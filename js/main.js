@@ -1,13 +1,8 @@
 /**
  * ============================================================================
  * UMMAT HAJJ UMRAH TOURS & TRAVELS — INTERACTIVE FRONTEND ENGINE
+ * Multilingual Support: English (en), Hindi (hi), Marathi (mr), Urdu (ur)
  * ============================================================================
- * Handles:
- * 1. Dynamic Package Cards Rendering with Live Quad/Triple/Double Switcher
- * 2. Interactive Umrah Cost Estimator (Package + Sharing + City + Travelers)
- * 3. Hajj & Custom Services Rendering
- * 4. FAQ Accordion & Required Documents
- * 5. Pre-filled WhatsApp Click-to-Chat & Callback Request Form
  */
 
 (function () {
@@ -17,6 +12,15 @@
   if (!CONFIG) {
     console.error("UMMAT_CONFIG is missing! Check js/config.js");
     return;
+  }
+
+  // Active language state (default: English, or persisted in localStorage)
+  let currentLang = localStorage.getItem("ummat_lang") || "en";
+
+  // Helper to safely fetch translation keys
+  function getTranslation(path) {
+    const dict = window.UMMAT_TRANSLATIONS?.[currentLang] || window.UMMAT_TRANSLATIONS?.en || {};
+    return path.split(".").reduce((acc, part) => acc && acc[part], dict) || "";
   }
 
   // Track active sharing state per package card (default: quad)
@@ -30,7 +34,7 @@
 
   // Build WhatsApp URL with pre-filled encoded message
   function buildWhatsAppURL(messageText) {
-    const cleanPhone = (CONFIG.agency.whatsappNumber || "919876543210").replace(/\D/g, "");
+    const cleanPhone = (CONFIG.agency.whatsappNumber || "919405070008").replace(/\D/g, "");
     return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(messageText)}`;
   }
 
@@ -70,8 +74,13 @@
     });
 
     document.querySelectorAll("[data-whatsapp-general]").forEach((el) => {
-      const msg = `Assalamu Alaikum ${CONFIG.agency.fullName}, I visited ${CONFIG.agency.primaryDomain} and would like to enquire about your upcoming Umrah & Hajj packages.`;
-      el.href = buildWhatsAppURL(msg);
+      const msgs = {
+        en: `Assalamu Alaikum Haji Aslam Jamkhed (${CONFIG.agency.fullName}), I visited your website and would like to enquire about your upcoming Hajj 2027 & Umrah packages.`,
+        hi: `अस्सलामु अलैकुम हाजी असलम जामखेड (${CONFIG.agency.fullName}), मैं आपकी वेबसाइट से हज 2027 और उमरा पैकेज के संबंध में जानकारी चाहता हूं।`,
+        mr: `अस्सलामु अलैकुम हाजी असलम जामखेड (${CONFIG.agency.fullName}), मी आपल्या संकेतस्थळावरून हज 2027 आणि उमरा पॅकेज संदर्भात माहिती विचारत आहे.`,
+        ur: `السلام علیکم حاجی اسلم جامکھیڈ (${CONFIG.agency.fullName})، میں آپ کی ویب سائٹ دیکھ رہا ہوں اور حج ۲۰۲۷ اور عمرہ پیکیج کے متعلق معلومات چاہتا ہوں۔`
+      };
+      el.href = buildWhatsAppURL(msgs[currentLang] || msgs.en);
     });
 
     // Stats strip
@@ -88,6 +97,49 @@
         )
         .join("");
     }
+  }
+
+  // Switch Active Language and Update UI Text
+  function setLanguage(lang) {
+    if (!window.UMMAT_TRANSLATIONS?.[lang]) {
+      lang = "en";
+    }
+    currentLang = lang;
+    localStorage.setItem("ummat_lang", lang);
+
+    document.documentElement.lang = lang;
+    document.documentElement.dir = (lang === "ur" ? "rtl" : "ltr");
+
+    // Update active state on language switcher buttons
+    document.querySelectorAll("[data-lang-btn]").forEach((btn) => {
+      if (btn.getAttribute("data-lang-btn") === lang) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
+
+    // Update all elements with data-i18n
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      const key = el.getAttribute("data-i18n");
+      const text = getTranslation(key);
+      if (text) {
+        el.textContent = text;
+      }
+    });
+
+    // Update input placeholders with data-i18n-placeholder
+    document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+      const key = el.getAttribute("data-i18n-placeholder");
+      const text = getTranslation(key);
+      if (text) {
+        el.setAttribute("placeholder", text);
+      }
+    });
+
+    hydrateAgencyMetadata();
+    renderUmrahPackages();
+    calculateUmrahEstimate();
   }
 
   // Render the 4 Umrah Package Cards with interactive Quad/Triple/Double tabs
@@ -279,8 +331,45 @@
 
   function buildPackageWhatsAppMessage(pkg, sharingKey, calculatedPrice) {
     const sharingObj = CONFIG.sharingTypes[sharingKey] || CONFIG.sharingTypes.quad;
+    const contactName = CONFIG.agency.contactPerson || CONFIG.agency.fullName;
+
+    if (currentLang === "ur") {
+      return buildWhatsAppURL(
+        `السلام علیکم ${contactName}،\n\n` +
+        `میں آپ کی ویب سائٹ پر عمرہ پیکیج دیکھ رہا ہوں اور درج ذیل پیکیج کے متعلق معلومات چاہتا ہوں:\n` +
+        `• *پیکیج:* ${pkg.title} (${pkg.duration})\n` +
+        `• *کمرے کی شیئرنگ:* ${sharingObj.label}\n` +
+        `• *ویب سائٹ ریٹ:* ${formatINR(calculatedPrice)} فی کس\n` +
+        `• *مکہ ہوٹل فاصلہ:* ${pkg.makkahHotel.distance}\n` +
+        `• *مدینہ ہوٹل فاصلہ:* ${pkg.madinahHotel.distance}\n\n` +
+        `براہِ کرم روانگی کی تاریخیں اور بکنگ کا طریقہ بتائیں۔`
+      );
+    } else if (currentLang === "mr") {
+      return buildWhatsAppURL(
+        `अस्सलामु अलैकुम ${contactName},\n\n` +
+        `मी आपल्या संकेतस्थळावरून खालील पॅकेज संदर्भात माहिती विचारत आहे:\n` +
+        `• *पॅकेज:* ${pkg.title} (${pkg.duration})\n` +
+        `• *रूम शेअरिंग:* ${sharingObj.label}\n` +
+        `• *किंमत:* ${formatINR(calculatedPrice)} प्रति व्यक्ती\n` +
+        `• *मक्का अंतर:* ${pkg.makkahHotel.distance}\n` +
+        `• *मदीना अंतर:* ${pkg.madinahHotel.distance}\n\n` +
+        `कृपया पुढील तारखा आणि बुकिंग माहिती पाठवावी.`
+      );
+    } else if (currentLang === "hi") {
+      return buildWhatsAppURL(
+        `अस्सलामु अलैकुम ${contactName},\n\n` +
+        `मैं आपकी वेबसाइट से इस पैकेज के संबंध में जानकारी चाहता हूं:\n` +
+        `• *पैकेज:* ${pkg.title} (${pkg.duration})\n` +
+        `• *रूम शेयरिंग:* ${sharingObj.label}\n` +
+        `• *दिखाई गई दर:* ${formatINR(calculatedPrice)} प्रति व्यक्ति\n` +
+        `• *मक्का दूरी:* ${pkg.makkahHotel.distance}\n` +
+        `• *मदीना दूरी:* ${pkg.madinahHotel.distance}\n\n` +
+        `कृपया आगामी रवानगी की तारीखें और बुकिंग विवरण साझा करें।`
+      );
+    }
+
     const msg =
-      `Assalamu Alaikum ${CONFIG.agency.fullName},\n\n` +
+      `Assalamu Alaikum ${contactName},\n\n` +
       `I would like to enquire about:\n` +
       `• *Package:* ${pkg.title} (${pkg.duration})\n` +
       `• *Room Sharing:* ${sharingObj.label}\n` +
@@ -492,18 +581,56 @@
     // Build WhatsApp quote link
     const waQuoteBtn = document.getElementById("est-whatsapp-btn");
     if (waQuoteBtn) {
-      const msg =
-        `Assalamu Alaikum ${CONFIG.agency.fullName},\n\n` +
-        `I calculated an Umrah estimate on your website (${CONFIG.agency.primaryDomain}) and would like your best official quote:\n\n` +
-        `• *Selected Package:* ${pkg.title} (${pkg.duration})\n` +
-        `• *Room Sharing:* ${sharing.label}\n` +
-        `• *Departure Airport:* ${city.name}\n` +
-        `• *Preferred Batch:* ${monthVal}\n` +
-        `• *Travelers:* ${adults} Adult(s)${children > 0 ? `, ${children} Child(ren)` : ""}${
-          infants > 0 ? `, ${infants} Infant(s)` : ""
-        }\n` +
-        `• *Website Estimated Total:* ${formatINR(grandTotal)}\n\n` +
-        `Please confirm seat availability and any family/group discount.`;
+      const contactName = CONFIG.agency.contactPerson || CONFIG.agency.fullName;
+      let msg = "";
+
+      if (currentLang === "ur") {
+        msg =
+          `السلام علیکم ${contactName}،\n\n` +
+          `میں نے آپ کی ویب سائٹ (${CONFIG.agency.primaryDomain}) پر عمرہ کوٹیشن تیار کی ہے اور باضابطہ فائنل ریٹ چاہتا ہوں:\n\n` +
+          `• *منتخب پیکیج:* ${pkg.title} (${pkg.duration})\n` +
+          `• *کمرے کی شیئرنگ:* ${sharing.label}\n` +
+          `• *روانگی ہوائی اڈہ:* ${city.name}\n` +
+          `• *پسندیدہ بیچ:* ${monthVal}\n` +
+          `• *زائرین:* ${adults} بڑے${children > 0 ? `، ${children} بچے` : ""}${infants > 0 ? `، ${infants} شیر خوار` : ""}\n` +
+          `• *کل متوقع رقم:* ${formatINR(grandTotal)}\n\n` +
+          `براہِ کرم سیٹوں کی دستیابی اور فیملی ڈسکاؤنٹ بتائیں۔`;
+      } else if (currentLang === "mr") {
+        msg =
+          `अस्सलामु अलैकुम ${contactName},\n\n` +
+          `मी आपल्या संकेतस्थळावरून (${CONFIG.agency.primaryDomain}) खालील उमरा कोटेशन तयार केले आहे:\n\n` +
+          `• *पॅकेज:* ${pkg.title} (${pkg.duration})\n` +
+          `• *रूम शेअरिंग:* ${sharing.label}\n` +
+          `• *प्रयाण विमानतळ:* ${city.name}\n` +
+          `• *प्रवासाचा महिना:* ${monthVal}\n` +
+          `• *प्रवासी:* ${adults} प्रौढ${children > 0 ? `, ${children} मुले` : ""}${infants > 0 ? `, ${infants} लहान बाळे` : ""}\n` +
+          `• *एकूण अंदाजे खर्च:* ${formatINR(grandTotal)}\n\n` +
+          `कृपया सीट उपलब्धता आणि ग्रुप डिस्काउंट सांगावा.`;
+      } else if (currentLang === "hi") {
+        msg =
+          `अस्सलामु अलैकुम ${contactName},\n\n` +
+          `मैंने आपकी वेबसाइट (${CONFIG.agency.primaryDomain}) पर उमरा कोटेशन तैयार किया है:\n\n` +
+          `• *पैकेज:* ${pkg.title} (${pkg.duration})\n` +
+          `• *रूम शेयरिंग:* ${sharing.label}\n` +
+          `• *रवानगी हवाई अड्डा:* ${city.name}\n` +
+          `• *पसंदीदा महीना:* ${monthVal}\n` +
+          `• *यात्री:* ${adults} वयस्क${children > 0 ? `, ${children} बच्चे` : ""}${infants > 0 ? `, ${infants} शिशु` : ""}\n` +
+          `• *कुल अनुमानित खर्च:* ${formatINR(grandTotal)}\n\n` +
+          `कृपया सीट उपलब्धता और परिवार छूट की पुष्टि करें।`;
+      } else {
+        msg =
+          `Assalamu Alaikum ${contactName},\n\n` +
+          `I calculated an Umrah estimate on your website (${CONFIG.agency.primaryDomain}) and would like your best official quote:\n\n` +
+          `• *Selected Package:* ${pkg.title} (${pkg.duration})\n` +
+          `• *Room Sharing:* ${sharing.label}\n` +
+          `• *Departure Airport:* ${city.name}\n` +
+          `• *Preferred Batch:* ${monthVal}\n` +
+          `• *Travelers:* ${adults} Adult(s)${children > 0 ? `, ${children} Child(ren)` : ""}${
+            infants > 0 ? `, ${infants} Infant(s)` : ""
+          }\n` +
+          `• *Website Estimated Total:* ${formatINR(grandTotal)}\n\n` +
+          `Please confirm seat availability and any family/group discount.`;
+      }
       waQuoteBtn.href = buildWhatsAppURL(msg);
     }
   }
@@ -707,6 +834,14 @@
 
   // Boot application on DOMContentLoaded
   document.addEventListener("DOMContentLoaded", function () {
+    // Bind all Language Switcher buttons (top bar & mobile)
+    document.querySelectorAll("[data-lang-btn]").forEach((btn) => {
+      btn.addEventListener("click", function () {
+        const lang = this.getAttribute("data-lang-btn");
+        setLanguage(lang);
+      });
+    });
+
     hydrateAgencyMetadata();
     renderUmrahPackages();
     initCostEstimator();
@@ -714,5 +849,8 @@
     renderDocumentsAndFAQs();
     initCallbackForm();
     initMobileMenu();
+
+    // Initialize with active language (English, Hindi, Marathi, or Urdu)
+    setLanguage(currentLang);
   });
 })();
