@@ -12,27 +12,26 @@ window.UMMAT_CONFIG = {
     name: "Ummat International",
     subName: "Hajj & Umrah Tours & Travels India",
     fullName: "Ummat International Tours & Travels",
-    tagline: "Your Trusted Companion for a Blessed Journey to Makkah & Madinah",
+    contactPerson: "Haji Aslam Jamkhed",
+    tagline: "The Journey of a Lifetime — Trusted Travel Partner for a Sacred Journey",
     arabicBismillah: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
     arabicCalligraphy: "لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ",
-    primaryDomain: "ummathajjumrah.com",
-    secondaryDomain: "ummathajjumrah.in",
-    // Enter your 10-digit Indian WhatsApp number with country code 91 (no + or spaces)
-    whatsappNumber: "919876543210",
-    // Formatted numbers displayed on the website
-    displayPhonePrimary: "+91 98765 43210",
-    displayPhoneSecondary: "+91 98765 43211",
-    email: "info@ummathajjumrah.com",
-    address: "Shop No. 14, Al-Barakah Arcade, Near Jama Masjid, Mohammed Ali Road, Mumbai - 400003, Maharashtra, India",
-    branchCities: "Mumbai • Delhi • Hyderabad • Bengaluru • Ahmedabad • Lucknow",
-    workingHours: "Mon – Sun: 10:00 AM to 9:00 PM (Friday break: 12:30 PM – 2:30 PM)",
-    // Optional: Free Web3Forms access key (https://web3forms.com) to also receive email leads
+    primaryDomain: "ummats.com",
+    secondaryDomain: "ummathajjumrah.com",
+    // 10-digit Indian WhatsApp number for Haji Aslam Jamkhed
+    whatsappNumber: "919405070008",
+    displayPhonePrimary: "+91 94050 70008",
+    displayPhoneSecondary: "+91 23403 5689",
+    email: "info@ummats.com",
+    address: "Ummat International, Jamkhed / Mumbai, Maharashtra, India",
+    branchCities: "Jamkhed • Mumbai • Pune • Ahmednagar • Aurangabad • Hyderabad",
+    workingHours: "Daily: 9:00 AM to 10:00 PM (Direct Pilgrim Helpline Open 24/7)",
     web3FormsAccessKey: "",
     stats: [
-      { value: "12,500+", label: "Happy Pilgrims Served" },
-      { value: "100%", label: "Visa Approval Track Record" },
-      { value: "3 Times", label: "Fresh Indian Buffet Meals" },
-      { value: "24/7", label: "Makkah & Madinah Ground Team" }
+      { value: "Thousands", label: "Of Pilgrims Served with Trust" },
+      { value: "Zone 2", label: "Category B Mina Luxury Tents" },
+      { value: "Hilton", label: "Makkah Sharif Tower Hotel" },
+      { value: "Saudi Airlines", label: "Direct Flights Included" }
     ]
   },
 
@@ -233,22 +232,84 @@ window.UMMAT_CONFIG = {
     }
   ],
 
-  // 7. HAJJ & CUSTOM TOURS SECTION (Complementary Offerings)
+  // 7. OFFICIAL HAJJ 2027 PLATINUM 36-DAYS SHIFTING PACKAGE
+  hajj2027: {
+    title: "HAJJ 2027 — THE JOURNEY OF A LIFETIME",
+    subtitle: "Platinum 5-Star 36 Days Shifting Package • Zone 2 (Category B)",
+    contactPerson: "Haji Aslam Jamkhed",
+    helpline: "+91 94050 70008",
+    whatsappNumber: "919405070008",
+    airline: "Saudi Airlines (Direct Flight)",
+    duration: "36 Days (Dhu al-Qi'dah 1, 1448H)",
+    zoneCategory: "Zone 2 • Category B Mina Luxury Tents",
+    hotels: {
+      makkah: "Hilton Tower (Makkah Sharif Haram Courtyard)",
+      madinah: "Central Markazia Area (Madinah Sharif)",
+      aziziyah: "Aziziyah Air-Conditioned Building Stay"
+    },
+    pricing: [
+      { beds: "5 Bed Sharing", price: 750000, label: "5 Bed Sharing" },
+      { beds: "4 Bed Sharing", price: 770000, label: "4 Bed Sharing" },
+      { beds: "3 Bed Sharing", price: 790000, label: "3 Bed Sharing" },
+      { beds: "2 Bed Sharing", price: 810000, label: "2 Bed Sharing" }
+    ],
+    inclusions: [
+      "Saudi Airlines Direct Return Air Ticket",
+      "Official Hajj Visa & Saudi Medical Insurance",
+      "Hilton Tower Makkah, Central Markazia Madinah & Aziziyah Accommodation",
+      "3 Times Daily Hygienic & Delicious Indian Buffet Meals",
+      "Unlimited Laundry Service in Holy Cities",
+      "Upgraded A/C Tents in Mina (Zone 2, Category B)",
+      "Full Air-Conditioned Luxury Coach Transportation",
+      "Complete Ummat Travel Kit (Luggage Bags, Ihram, Books)",
+      "5 Liters Sealed Official Zamzam Water (5LT Zam-Zam)"
+    ],
+    exclusions: [
+      "Qurbani (Hady)",
+      "Private Individual Transfers",
+      "GST & TCS (As applicable per Indian travel norms)",
+      "Anything Not Specifically Mentioned in Inclusions"
+    ],
+    itinerary: [
+      { date: "11 Zil Qadah", title: "Direct Flight to Jeddah", desc: "Board Saudi Airlines direct flight from India to Jeddah; transfer to Hilton Tower Makkah." },
+      { date: "25 Zil Qadah", title: "Hilton Tower to Madinah", desc: "Depart Makkah Sharif by luxury coach to Madinah Sharif Markazia hotel." },
+      { date: "4 Zil Hijjah", title: "Madinah Sharif to Aziziyah", desc: "Proceed from Madinah Sharif to Aziziyah building stay for Hajj orientation." },
+      { date: "4–6 Zil Hijjah", title: "Aziziyah Pre-Hajj Stay", desc: "Spiritual rest, Hajj training, and preparation for Mina." },
+      { date: "7 Zil Hijjah", title: "Proceed to Mina (After Isha)", desc: "Wear Ihram and proceed after Isha prayer to Mina A/C Tents (Zone 2, Category B)." },
+      { date: "9 Zil Hijjah (Day)", title: "Day of Arafat (After Fajr)", desc: "Proceed after Fajr to Plain of Arafat for the primary pillar of Hajj and collective Duas." },
+      { date: "9 Zil Hijjah (Night)", title: "Night of Muzdalifah (At Maghrib)", desc: "Proceed at Maghrib to Muzdalifah under the open sky; collect pebbles for Ramee." },
+      { date: "10 Zil Hijjah", title: "1st Day Ramee & Mina", desc: "Proceed at Fajr to Mina, then to Jamarah for 1st Day Ramee (Jamarat Al-Aqaba)." },
+      { date: "11 Zil Hijjah", title: "2nd Day Ramee & Tawaf-e-Ziyarah", desc: "Proceed to Jamarah for 2nd Day Ramee and perform Tawaf-e-Ziyarah at Haram Sharif." },
+      { date: "12 Zil Hijjah", title: "3rd Day Ramee & Aziziyah Transfer", desc: "Perform 3rd Day Ramee then transfer to Aziziyah accommodation." },
+      { date: "13–16 Zil Hijjah", title: "Aziziyah Post-Hajj Stay", desc: "Tawaf-e-Wida and spiritual rest in Aziziyah." },
+      { date: "16 Zil Hijjah", title: "Direct Return Flight to India", desc: "Transfer to Jeddah airport for Saudi Airlines direct flight back to India with 5L Zamzam." }
+    ],
+    documents: [
+      { name: "Original Passport", desc: "Minimum 6 months validity from departure" },
+      { name: "PAN Card", desc: "Mandatory for international tour remittance" },
+      { name: "Aadhaar Card", desc: "Indian national identity proof" },
+      { name: "2 Color Photos", desc: "White background passport-size" },
+      { name: "Cheque / Bank Transfer", desc: "Official account payment" },
+      { name: "20% Advance Booking", desc: "Confirm registration and seat allocation" }
+    ]
+  },
+
+  // 8. HAJJ & CUSTOM TOURS SECTION (Complementary Offerings)
   specialServices: [
     {
       id: "hajj-packages",
       icon: "kaaba",
-      tag: "Hajj 1448H / 2027",
-      title: "Shifting & Non-Shifting Hajj Packages",
-      description: "Pre-register for our Government-compliant private quota Hajj packages. Choose between Aziziya + Markazia Shifting packages or VIP Non-Shifting 5-Star packages near Jamarat & Haram with upgraded Mina AC tents.",
-      startingHint: "Early Bird Registration & Guidance Available",
+      tag: "Hajj 2027 Official",
+      title: "Hajj 2027 Platinum 36-Days Shifting Package",
+      description: "Direct Saudi Airlines flights, Hilton Tower Makkah, Central Markazia Madinah, Zone 2 Category B AC Mina Tents, 3-time Indian buffet meals & unlimited laundry. Bookings open with 20% advance.",
+      startingHint: "From ₹7,50,000 (Haji Aslam Jamkhed: 9405070008)",
       features: [
-        "Complete Nusuk / Private PTO Quota Guidance & Documentation",
-        "Upgraded Gypsum Board AC Tents in Mina & Arafat with Sofa Cum Beds",
-        "24/7 Medical Doctor, Aalim Guidance & Fresh Indian Meals in Mina",
-        "Short (18–22 Days) & Long (34–40 Days) Hajj Itineraries"
+        "Saudi Airlines Direct Return Flights",
+        "Makkah: Hilton Tower • Madinah: Markazia",
+        "Zone 2 Category B Mina AC Tents with Unlimited Laundry",
+        "Complete 36 Days Guided Zil Qadah & Zil Hijjah Itinerary"
       ],
-      whatsappPrompt: "Assalamu Alaikum Ummat Travels, I would like to enquire about upcoming Hajj Packages (Shifting / Non-Shifting) and pre-registration details."
+      whatsappPrompt: "Assalamu Alaikum Haji Aslam Jamkhed, I am interested in HAJJ 2027 Platinum 36 Days Shifting Package (₹7,50,000). Please share registration and payment details."
     },
     {
       id: "custom-family-umrah",
@@ -282,23 +343,31 @@ window.UMMAT_CONFIG = {
     }
   ],
 
-  // 8. DOCUMENTS REQUIRED & STEP-BY-STEP CHECKLIST
+  // 9. REQUIRED DOCUMENTS (Hajj & Umrah Registration)
   documentsRequired: [
     {
       title: "Original Passport",
-      detail: "Minimum 6 months validity from the date of departure with at least 2 blank pages (front & back scan)."
+      detail: "Minimum 6 months validity from departure date with at least 2 blank pages (clear front & back scan)."
     },
     {
-      title: "Passport Size Photograph",
-      detail: "1 recent color photo with a pure WHITE background (without spectacles/caps, 80% face coverage)."
+      title: "PAN Card",
+      detail: "Mandatory under Indian travel compliance regulations for international tour remittance."
     },
     {
-      title: "PAN Card & Aadhaar Card",
-      detail: "Clear copy of PAN Card (mandatory under Indian TCS regulations for international tour bookings) & Aadhaar."
+      title: "Aadhaar Card",
+      detail: "Clear copy of Government Aadhaar card for pilgrim identification and emergency records."
     },
     {
-      title: "Booking Advance",
-      detail: "Pay just ₹20,000 per person via Bank Transfer / UPI / Cheque to lock your airline seat & hotel room."
+      title: "2 Passport Photos",
+      detail: "Recent color photographs with a pure WHITE background (80% face coverage, no glare)."
+    },
+    {
+      title: "Cheque / Online Bank Transfer",
+      detail: "Official company account payment proof via Cheque, RTGS, NEFT, or verified UPI."
+    },
+    {
+      title: "20% Booking Advance",
+      detail: "Lock your Saudi Airlines flight seat, Hilton Tower room, and Mina Category B AC tent allocation."
     }
   ],
 
