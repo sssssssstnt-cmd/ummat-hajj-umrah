@@ -1,32 +1,23 @@
 /* ============================================================================
- * UMMAT HAJJ UMRAH TOURS & TRAVELS — CUSTOM THEME & LUXURY ISLAMIC DESIGN
- * Palette: Royal Madinah Emerald (#0B4F3A), Deep Haram Green (#062E22),
- *          Warm Kiswah Gold (#D4AF37), Ivory Cream (#FAF8F5)
+ * UMMAT HAJJ UMRAH — WORLD-STANDARD SERENE SANCTUARY DESIGN SYSTEM (REACT.JS)
+ * Palette:
+ *   Warm Alabaster (#FBF9F5) • Madinah Pearl (#F4F0E8) • Soft Sand (#EAE3D5)
+ *   Sanctuary Emerald (#0C3B2E) • Deep Forest (#07231B) • Champagne Gold (#C5A059)
  * ============================================================================ */
 
 :root {
-  --emerald-950: #041F17;
-  --emerald-900: #062E22;
-  --emerald-800: #083D2D;
-  --emerald-700: #0B4F3A;
-  --emerald-600: #0F664B;
-  --emerald-100: #E6F4EF;
-  --emerald-50: #F2FAF7;
-
-  --gold-700: #9E7B1C;
-  --gold-600: #B89225;
-  --gold-500: #D4AF37;
-  --gold-400: #E5C453;
-  --gold-300: #F1DA8A;
-  --gold-100: #FBF4DC;
-  --gold-50: #FDFBF2;
-
-  --ivory-bg: #FAF8F5;
-  --slate-900: #0F172A;
-  --slate-700: #334155;
-  --slate-500: #64748B;
-  --whatsapp: #25D366;
-  --whatsapp-dark: #1DA851;
+  --alabaster: #FBF9F5;
+  --pearl: #F4F0E8;
+  --sand: #EAE3D5;
+  --emerald-deep: #07231B;
+  --emerald-sanctuary: #0C3B2E;
+  --emerald-sage: #1B5644;
+  --emerald-mist: #E9F1EE;
+  --champagne-gold: #C5A059;
+  --champagne-light: #E5CFA0;
+  --champagne-soft: #F7F1E3;
+  --ink: #17231F;
+  --ink-muted: #556660;
 }
 
 * {
@@ -35,171 +26,114 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 88px;
+  scroll-padding-top: 96px;
 }
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: var(--ivory-bg);
-  color: var(--slate-900);
+  background-color: var(--alabaster);
+  color: var(--ink);
   overflow-x: hidden;
-  line-height: 1.6;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
 }
 
-.font-serif-islamic {
-  font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
+.font-editorial {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-display-serif {
+  font-family: 'Cinzel', Georgia, serif;
 }
 
 .font-arabic {
   font-family: 'Amiri', 'Traditional Arabic', serif;
 }
 
-/* Subtle Islamic Geometric Arabesque Pattern Overlay */
-.bg-islamic-pattern {
-  background-color: var(--emerald-900);
+/* Whisper-soft Sacred Geometric Watermark */
+.bg-sanctuary-light {
+  background-color: var(--alabaster);
   background-image:
-    radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.14) 0%, transparent 45%),
-    radial-gradient(circle at 80% 80%, rgba(15, 102, 75, 0.35) 0%, transparent 50%),
-    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%23D4AF37' stroke-width='0.7' stroke-opacity='0.14'%3E%3Cpath d='M30 0l15 15-15 15-15-15zM0 30l15 15-15 15-15-15zM60 30l15 15-15 15-15-15zM30 30l15 15-15 15-15-15z'/%3E%3Ccircle cx='30' cy='30' r='8'/%3E%3Cpath d='M30 0v60M0 30h60' stroke-opacity='0.07'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    radial-gradient(circle at 15% 10%, rgba(197, 160, 89, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 85% 90%, rgba(12, 59, 46, 0.05) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%23C5A059' stroke-width='0.55' stroke-opacity='0.14'%3E%3Cpath d='M40 0l20 20-20 20-20-20zM0 40l20 20-20 20-20-20zM80 40l20 20-20 20-20-20zM40 40l20 20-20 20-20-20z'/%3E%3Ccircle cx='40' cy='40' r='11'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
-.bg-islamic-light {
-  background-color: var(--ivory-bg);
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%230B4F3A' stroke-width='0.6' stroke-opacity='0.05'%3E%3Cpath d='M30 0l15 15-15 15-15-15zM30 30l15 15-15 15-15-15z'/%3E%3Ccircle cx='30' cy='30' r='8'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+.bg-sanctuary-emerald {
+  background-color: var(--emerald-deep);
+  background-image:
+    radial-gradient(circle at 20% 15%, rgba(197, 160, 89, 0.16) 0%, transparent 48%),
+    radial-gradient(circle at 80% 85%, rgba(27, 86, 68, 0.45) 0%, transparent 55%),
+    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%23C5A059' stroke-width='0.6' stroke-opacity='0.11'%3E%3Cpath d='M40 0l20 20-20 20-20-20zM0 40l20 20-20 20-20-20zM80 40l20 20-20 20-20-20zM40 40l20 20-20 20-20-20z'/%3E%3Ccircle cx='40' cy='40' r='11'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
-/* Gold Metallic Text & Gradients */
-.text-gold-gradient {
-  background: linear-gradient(135deg, #F3DE92 0%, #D4AF37 50%, #B48A1E 100%);
+/* Champagne Gold Text & Button Gradients */
+.text-champagne-gradient {
+  background: linear-gradient(135deg, #F3E2B8 0%, #D5B26E 50%, #B48E43 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.bg-gold-gradient {
-  background: linear-gradient(135deg, #E5C453 0%, #D4AF37 55%, #B48A1E 100%);
+.bg-champagne-gradient {
+  background: linear-gradient(135deg, #DFC286 0%, #C5A059 55%, #A8833B 100%);
 }
 
-.bg-gold-gradient:hover {
-  background: linear-gradient(135deg, #F1DA8A 0%, #E0BC42 50%, #C29725 100%);
+.bg-champagne-gradient:hover {
+  background: linear-gradient(135deg, #EAD19B 0%, #D1AD66 55%, #B69045 100%);
 }
 
-.bg-emerald-gradient {
-  background: linear-gradient(135deg, #0F664B 0%, #0B4F3A 60%, #062E22 100%);
+/* Serene Card Elevation */
+.sanctuary-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(197, 160, 89, 0.24);
+  box-shadow: 0 12px 36px -10px rgba(7, 35, 27, 0.06);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
-/* Custom Arch Border Card */
-.package-card {
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
-  border: 1px solid rgba(212, 175, 55, 0.28);
+.sanctuary-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 28px 60px -15px rgba(7, 35, 27, 0.12);
+  border-color: rgba(197, 160, 89, 0.55);
 }
 
-.package-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 24px 48px -12px rgba(6, 46, 34, 0.16), 0 0 0 1px rgba(212, 175, 55, 0.55);
+.sanctuary-card-featured {
+  border: 1.5px solid #C5A059;
+  box-shadow: 0 22px 54px -12px rgba(12, 59, 46, 0.14);
 }
 
-.package-card-featured {
-  border: 2px solid #D4AF37;
-  box-shadow: 0 20px 45px -10px rgba(11, 79, 58, 0.18);
-}
-
-/* Sharing Switcher Pills */
-.sharing-pill {
-  transition: all 0.2s ease;
-}
-
-.sharing-pill.active {
-  background-color: var(--emerald-700);
-  color: #FFFFFF;
-  box-shadow: 0 2px 8px rgba(11, 79, 58, 0.25);
-  border-color: var(--emerald-700);
-}
-
-/* Price Change Pulse Animation */
-@keyframes pricePop {
-  0% {
-    transform: scale(0.95);
-    opacity: 0.7;
-  }
-  60% {
-    transform: scale(1.04);
-  }
-  100% {
+/* Subtle Breathing Glow Animation */
+@keyframes serenePulse {
+  0%, 100% {
+    opacity: 0.75;
     transform: scale(1);
+  }
+  50% {
     opacity: 1;
+    transform: scale(1.03);
   }
 }
 
-.price-animate {
-  animation: pricePop 0.28s ease-out;
+.animate-serene-glow {
+  animation: serenePulse 5s ease-in-out infinite;
 }
 
-/* Floating WhatsApp Pulse */
-@keyframes pulseRing {
-  0% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
-  }
-  70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 16px rgba(37, 211, 102, 0);
-  }
-  100% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
-  }
+/* Mihrab Arch Image Frame */
+.mihrab-arch {
+  border-radius: 180px 180px 24px 24px;
 }
 
-.whatsapp-float-btn {
-  animation: pulseRing 2.2s infinite;
-}
-
-/* Ornamental Divider */
-.ornament-divider {
+/* Ornamental Gold Divider */
+.peace-divider {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 14px;
 }
 
-.ornament-divider::before,
-.ornament-divider::after {
+.peace-divider::before,
+.peace-divider::after {
   content: "";
   height: 1px;
-  width: 72px;
-  background: linear-gradient(90deg, transparent, #D4AF37, transparent);
-}
-
-/* FAQ Accordion Smooth Transition */
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s ease;
-}
-
-.faq-item.open .faq-answer {
-  max-height: 400px;
-}
-
-.faq-item.open .faq-chevron {
-  transform: rotate(180deg);
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #F1EFEA;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #0B4F3A;
-  border-radius: 5px;
-  border: 2px solid #F1EFEA;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #062E22;
+  width: 64px;
+  background: linear-gradient(90deg, transparent, rgba(197, 160, 89, 0.65), transparent);
 }
