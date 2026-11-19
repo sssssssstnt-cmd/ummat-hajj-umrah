@@ -21,9 +21,9 @@ window.UMMAT_CONFIG = {
     // 10-digit Indian WhatsApp number for Haji Aslam Jamkhed
     whatsappNumber: "919405070008",
     displayPhonePrimary: "+91 94050 70008",
-    displayPhoneSecondary: "+91 23403 5689",
+    displayPhoneSecondary: "+91 90281 41323",
     email: "info@ummats.com",
-    address: "Ummat International, Jamkhed / Mumbai, Maharashtra, India",
+    address: "H. No. 8449, Shop No. 2, Tekale Wasti, Jamkhed, Ahmed Nagar, Maharashtra, India",
     branchCities: "Jamkhed • Mumbai • Pune • Ahmednagar • Aurangabad • Hyderabad",
     workingHours: "Daily: 9:00 AM to 10:00 PM (Direct Pilgrim Helpline Open 24/7)",
     web3FormsAccessKey: "",
@@ -129,37 +129,37 @@ window.UMMAT_CONFIG = {
     },
     {
       id: "deluxe-umrah",
-      title: "Super Deluxe Umrah Package",
-      subtitle: "Walking Distance to Haram — Ideal for Families & Elders",
-      badge: "Most Popular",
+      title: "Special 15 Days Umrah Package",
+      subtitle: "20 December Special Group • Saudia Airlines • Walking Distance",
+      badge: "20 Dec Special Group",
       badgeType: "gold",
       featured: true,
       duration: "15 Days / 14 Nights",
-      nightsSplit: "7 Nights Makkah • 7 Nights Madinah",
+      nightsSplit: "Makkah Sharif & Madinah Munawwarah",
       basePriceQuad: 95000,
-      originalPrice: 104000,
+      originalPrice: 105000,
       makkahHotel: {
-        name: "Emaar Grand / Elaf Ajyad / Nawazi Watheer or Similar",
-        category: "Superior 4-Star Class Hotel",
-        distance: "300m – 350m from Masjid al-Haram",
-        shuttle: "4-Minute Flat Walk from Ajyad / Ibrahim Khalil Rd"
+        name: "Deluxe Makkah Hotel",
+        category: "Prime Accommodations",
+        distance: "500 Meters Walking Distance from Haram",
+        shuttle: "Direct Easy Walking to Masjid al-Haram"
       },
       madinahHotel: {
-        name: "Taiba Front / Emaar Royal / Saja Al Madinah or Similar",
-        category: "Superior 4-Star Class Hotel",
-        distance: "150m – 200m from Masjid an-Nabawi",
-        shuttle: "2-Minute Walk (Close to Ladies Gate 25)"
+        name: "Deluxe Madinah Hotel",
+        category: "Prime Accommodations",
+        distance: "250 Meters Walking Distance from Masjid an-Nabawi",
+        shuttle: "3-Minute Walk to Ladies & Gents Gates"
       },
-      flights: "Direct Return Flights (Saudia / Air India / Indigo)",
-      meals: "Lavish 3-Time Indian Buffet + Tea/Snacks",
-      transport: "New Model Luxury AC Coach + Optional Haramain Train",
+      flights: "Saudia Airlines Flight Included",
+      meals: "Delicious Meals & Catering Included (Breakfast, Lunch & Dinner)",
+      transport: "Ground Transportation (Luxury AC Bus Transfers)",
       highlights: [
-        "Walking Distance Hotels in Both Makkah & Madinah (No Shuttle Needed)",
-        "Direct Flights with 30kg + 7kg Baggage Allowance",
-        "Close Access to Ladies Gate in Masjid an-Nabawi",
-        "Guided Historical Ziyarat + Badr / Taif Visit Included",
-        "Pre-Departure Umrah Training Seminar (Online & In-Person)",
-        "Premium Umrah Welcome Kit + 5 Liters Official Zamzam"
+        "Hotel Accommodations in Makkah (500m) & Madinah (250m)",
+        "Saudia Airlines Return Flight Included",
+        "Full Ground Transportation in Saudi Arabia",
+        "Hygienic Meals & Catering Services",
+        "Complete Guided Ziyarat with Experienced Aalim",
+        "Complimentary Umrah Kit + 5L Official Zamzam"
       ]
     },
     {

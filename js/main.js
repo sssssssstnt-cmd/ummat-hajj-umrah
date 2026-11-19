@@ -153,6 +153,70 @@
     calculateUmrahEstimate();
   }
 
+  // Active Sacred Journey Mode: 'umrah' (default) or 'hajj'
+  let currentJourney = localStorage.getItem("ummat_journey") || "umrah";
+
+  function setJourneyMode(mode, scrollToContent) {
+    if (mode !== "hajj" && mode !== "umrah") {
+      mode = "umrah";
+    }
+    currentJourney = mode;
+    localStorage.setItem("ummat_journey", mode);
+
+    // Update active class on all journey buttons
+    document.querySelectorAll("[data-journey-btn]").forEach((btn) => {
+      if (btn.getAttribute("data-journey-btn") === mode) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
+
+    const isHajj = mode === "hajj";
+
+    // Toggle Hero contents
+    const heroUmrah = document.getElementById("hero-content-umrah");
+    const heroHajj = document.getElementById("hero-content-hajj");
+    if (heroUmrah && heroHajj) {
+      if (isHajj) {
+        heroUmrah.classList.add("hidden");
+        heroHajj.classList.remove("hidden");
+      } else {
+        heroUmrah.classList.remove("hidden");
+        heroHajj.classList.add("hidden");
+      }
+    }
+
+    // Toggle Main Sections
+    const umrahSec = document.getElementById("umrah-packages");
+    const calcSec = document.getElementById("cost-estimator");
+    const hajjSec = document.getElementById("hajj-2027-section");
+    const hajjInvite = document.getElementById("hajj-switcher-invite");
+    const umrahInvite = document.getElementById("umrah-switcher-invite");
+
+    if (isHajj) {
+      if (hajjSec) hajjSec.classList.remove("hidden");
+      if (umrahInvite) umrahInvite.classList.remove("hidden");
+      if (umrahSec) umrahSec.classList.add("hidden");
+      if (calcSec) calcSec.classList.add("hidden");
+      if (hajjInvite) hajjInvite.classList.add("hidden");
+
+      if (scrollToContent && hajjSec) {
+        hajjSec.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      if (umrahSec) umrahSec.classList.remove("hidden");
+      if (calcSec) calcSec.classList.remove("hidden");
+      if (hajjInvite) hajjInvite.classList.remove("hidden");
+      if (hajjSec) hajjSec.classList.add("hidden");
+      if (umrahInvite) umrahInvite.classList.add("hidden");
+
+      if (scrollToContent && umrahSec) {
+        umrahSec.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }
+
   // Render the 4 Umrah Package Cards with interactive Quad/Triple/Double tabs
   function renderUmrahPackages() {
     const grid = document.getElementById("umrah-packages-grid");
@@ -868,6 +932,27 @@
       });
     });
 
+    // Bind all Journey Switcher buttons (Hero & Section invites)
+    document.querySelectorAll("[data-journey-btn]").forEach((btn) => {
+      btn.addEventListener("click", function () {
+        const mode = this.getAttribute("data-journey-btn");
+        setJourneyMode(mode, false);
+      });
+    });
+
+    // Automatically switch journey mode when clicking corresponding nav links
+    document.querySelectorAll('a[href="#hajj-2027-section"]').forEach((link) => {
+      link.addEventListener("click", function () {
+        setJourneyMode("hajj", true);
+      });
+    });
+
+    document.querySelectorAll('a[href="#umrah-packages"], a[href="#cost-estimator"]').forEach((link) => {
+      link.addEventListener("click", function () {
+        setJourneyMode("umrah", true);
+      });
+    });
+
     hydrateAgencyMetadata();
     renderUmrahPackages();
     initCostEstimator();
@@ -875,6 +960,16 @@
     renderDocumentsAndFAQs();
     initCallbackForm();
     initMobileMenu();
+
+    // Check URL parameters e.g. ?journey=hajj or location hash
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramJourney = urlParams.get("journey");
+    if (paramJourney === "hajj" || window.location.hash.includes("hajj")) {
+      currentJourney = "hajj";
+    }
+
+    // Initialize with active journey mode (Umrah or Hajj)
+    setJourneyMode(currentJourney, false);
 
     // Initialize with active language (English, Hindi, Marathi, or Urdu)
     setLanguage(currentLang);

@@ -138,6 +138,16 @@
         </div>
       </div>
 
+      <!-- Mobile Journey Mode Switcher -->
+      <div class="grid grid-cols-2 gap-2 mb-3">
+        <button type="button" data-journey-btn="umrah" class="journey-tab-btn active py-2.5 px-3 rounded-xl text-xs font-bold text-center border border-amber-400/40">
+          ✨ Umrah Packages
+        </button>
+        <button type="button" data-journey-btn="hajj" class="journey-tab-btn py-2.5 px-3 rounded-xl text-xs font-bold text-center border border-amber-400/40 text-emerald-200">
+          🕋 Hajj 2027
+        </button>
+      </div>
+
       <!-- Clean Navigation Links -->
       <a href="#hajj-2027-section" class="flex items-center justify-between py-2.5 px-3.5 rounded-xl bg-emerald-900/60 hover:bg-emerald-800 font-bold text-amber-300 border border-amber-400/30">
         <span>🕋 Hajj 2027 Platinum Package</span>
@@ -180,47 +190,70 @@
        ======================================================================== -->
   <section class="bg-islamic-pattern text-white relative overflow-hidden">
     <!-- Decorative Golden Arch Glow -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16 md:py-20 relative z-10">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 md:py-16 relative z-10">
 
-        <!-- Left Column: Spiritual Headline & Value Proposition -->
+      <!-- Prominent Sacred Journey Mode Switcher (Umrah vs Hajj) -->
+      <div class="mb-10 p-3 sm:p-4 rounded-2xl bg-black/40 border-2 border-amber-400/50 backdrop-blur-md shadow-2xl flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3 text-center md:text-left">
+          <span class="text-3xl sm:text-4xl">🧭</span>
+          <div>
+            <div class="text-[11px] uppercase tracking-widest text-amber-300 font-bold">Choose Your Sacred Journey</div>
+            <div class="text-base sm:text-lg font-extrabold text-white">Select Umrah or Hajj to view dedicated package details</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 bg-emerald-950/90 p-1.5 rounded-xl border border-amber-400/40 w-full md:w-auto justify-center">
+          <button type="button" data-journey-btn="umrah" class="journey-tab-btn active px-4 sm:px-6 py-2.5 rounded-lg text-xs sm:text-sm font-extrabold flex items-center justify-center gap-2">
+            <span>✨ 15-Days Umrah Packages</span>
+            <span class="text-[10px] bg-emerald-900 text-amber-300 px-2 py-0.5 rounded font-black">From ₹78k</span>
+          </button>
+          <button type="button" data-journey-btn="hajj" class="journey-tab-btn px-4 sm:px-6 py-2.5 rounded-lg text-xs sm:text-sm font-extrabold text-emerald-200 hover:text-white flex items-center justify-center gap-2">
+            <span>🕋 Hajj 2027 Platinum</span>
+            <span class="text-[10px] bg-amber-400/20 text-amber-300 border border-amber-400/40 px-2 py-0.5 rounded font-black">36-Days</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- VIEW 1: UMRAH HERO CONTENT -->
+      <div id="hero-content-umrah" class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <!-- Left Column: Umrah Headline & Value Proposition -->
         <div class="lg:col-span-7 space-y-6">
           <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-amber-400/15 border border-amber-400/40 text-amber-300 text-xs md:text-sm font-semibold">
             <span class="font-arabic text-base">لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ</span>
             <span>•</span>
-            <span data-i18n="hero.badge">2026–2027 Umrah &amp; Ramadan Bookings Now Open</span>
+            <span>20 December Special Group &amp; All-Inclusive Umrah Bookings Open</span>
           </div>
 
-          <h1 class="text-3xl sm:text-5xl lg:text-[52px] font-extrabold font-serif-islamic leading-[1.15] tracking-tight">
-            <span data-i18n="hero.headlineMain">Embark on a Blessed</span> <span class="text-gold-gradient" data-i18n="hero.headlineHighlight">Umrah &amp; Hajj</span> <span data-i18n="hero.headlineEnd">Journey with Complete Peace of Mind</span>
+          <h1 class="text-3xl sm:text-5xl lg:text-[50px] font-extrabold font-serif-islamic leading-[1.15] tracking-tight">
+            Embark on a Blessed <span class="text-gold-gradient">Umrah Pilgrimage</span> with Complete Peace of Mind
           </h1>
 
-          <p data-i18n="hero.description" class="text-base md:text-lg text-emerald-100/90 max-w-2xl leading-relaxed">
-            India’s trusted pilgrimage partner offering 100% transparent, all-inclusive packages—with direct flights, walking-distance Makkah &amp; Madinah hotels, 3-time fresh Indian buffet meals, guided Ziyarat by an experienced Aalim, and 5L Zamzam.
+          <p class="text-base md:text-lg text-emerald-100/90 max-w-2xl leading-relaxed">
+            India’s trusted pilgrimage partner offering all-inclusive packages with direct Saudia Airlines flights, walking-distance hotels (Makkah 500m &amp; Madinah 250m), 3-time fresh meals &amp; catering, full AC ground transport, guided Ziyarat, and 5L Zamzam.
           </p>
 
           <!-- Key Pill Highlights -->
           <div class="flex flex-wrap gap-2.5 pt-1 text-xs font-semibold">
-            <span data-i18n="hero.pillFlights" class="px-3.5 py-1.5 rounded-lg bg-white/10 border border-white/15 text-amber-200">✈️ Direct Flights from 9+ Indian Cities</span>
-            <span data-i18n="hero.pillHotels" class="px-3.5 py-1.5 rounded-lg bg-white/10 border border-white/15 text-amber-200">🏨 0m to 350m Haram Walking Hotels</span>
-            <span data-i18n="hero.pillMeals" class="px-3.5 py-1.5 rounded-lg bg-white/10 border border-white/15 text-amber-200">🍛 3x Daily Hygienic Indian Food</span>
-            <span data-i18n="hero.pillDeposit" class="px-3.5 py-1.5 rounded-lg bg-white/10 border border-white/15 text-amber-200">💳 Book Seat with 20% Advance</span>
+            <span class="px-3.5 py-1.5 rounded-lg bg-white/10 border border-white/15 text-amber-200">✈️ Saudia Airlines Direct Flight</span>
+            <span class="px-3.5 py-1.5 rounded-lg bg-white/10 border border-white/15 text-amber-200">🏨 Makkah 500m • Madinah 250m</span>
+            <span class="px-3.5 py-1.5 rounded-lg bg-white/10 border border-white/15 text-amber-200">🍛 Meals &amp; Catering Included</span>
+            <span class="px-3.5 py-1.5 rounded-lg bg-white/10 border border-white/15 text-amber-200">🚌 Ground Transportation Included</span>
           </div>
 
           <!-- Primary CTA Buttons -->
           <div class="pt-3 flex flex-wrap items-center gap-4">
             <a href="#umrah-packages"
                class="px-7 py-4 rounded-xl bg-gold-gradient text-emerald-950 font-extrabold text-sm md:text-base shadow-xl hover:scale-[1.01] transition flex items-center gap-2">
-              <span data-i18n="hero.btnPackages">View Umrah Packages (From ₹78,000) →</span>
+              <span>View Umrah Packages (From ₹78,000) →</span>
             </a>
             <a href="#cost-estimator"
                class="px-6 py-4 rounded-xl bg-emerald-800/80 hover:bg-emerald-800 text-amber-200 border border-amber-400/40 font-bold text-sm md:text-base transition flex items-center gap-2">
-              <span data-i18n="hero.btnCalculator">🧮 Calculate Family Cost</span>
+              <span>🧮 Calculate Family Cost</span>
             </a>
           </div>
         </div>
 
-        <!-- Right Column: Featured sacred arch card -->
+        <!-- Right Column: Featured Umrah Card (20 Dec Special Group ₹95,000) -->
         <div class="lg:col-span-5">
           <div class="bg-gradient-to-b from-[#0B4F3A] to-[#041F17] p-1 rounded-t-[140px] rounded-b-3xl border-2 border-amber-400/60 shadow-2xl">
             <div class="bg-[#062E22]/90 rounded-t-[136px] rounded-b-[20px] p-6 md:p-8 text-center space-y-5 relative overflow-hidden">
@@ -231,31 +264,109 @@
                 🕋
               </div>
               <div>
-                <span data-i18n="hero.archBadge" class="text-xs uppercase tracking-widest text-amber-300 font-bold">Most Popular Family Choice</span>
-                <h2 data-i18n="hero.archTitle" class="text-2xl font-bold font-serif-islamic text-white mt-1">15 Days Super Deluxe Umrah</h2>
-                <p data-i18n="hero.archSplit" class="text-xs text-emerald-200 mt-1">7 Nights Makkah (300m) • 7 Nights Madinah (150m)</p>
+                <span class="text-xs uppercase tracking-widest text-amber-300 font-bold">20 December Special Group</span>
+                <h2 class="text-2xl font-bold font-serif-islamic text-white mt-1">Special 15 Days Umrah Package</h2>
+                <p class="text-xs text-emerald-200 mt-1">Makkah Hotel 500m • Madinah Hotel 250m</p>
               </div>
 
               <div class="bg-emerald-950/80 rounded-2xl p-4 border border-amber-400/30">
-                <div data-i18n="hero.archStartingPrice" class="text-xs text-emerald-200">All-Inclusive Starting Price</div>
-                <div class="text-3xl md:text-4xl font-extrabold text-amber-300 mt-0.5"><span data-i18n="hero.archPriceTag">₹78,000</span> <span data-i18n="hero.archPriceUnit" class="text-sm font-normal text-emerald-200">/ person*</span></div>
-                <div data-i18n="hero.archSubnote" class="text-[11px] text-emerald-300/90 mt-1">Economy Quad • Super Deluxe Walking Distance at ₹95,000</div>
+                <div class="text-xs text-emerald-200">Special Group All-Inclusive Rate</div>
+                <div class="text-3xl md:text-4xl font-extrabold text-amber-300 mt-0.5">₹95,000 <span class="text-sm font-normal text-emerald-200">/ person*</span></div>
+                <div class="text-[11px] text-emerald-300/90 mt-1">Saudia Airlines • Meals &amp; Catering • Ground Transport</div>
               </div>
 
               <div class="grid grid-cols-2 gap-2.5 text-left text-xs text-emerald-100">
-                <div data-i18n="hero.archF1" class="p-2.5 rounded-xl bg-white/5 border border-white/10">✅ Direct Return Flights</div>
-                <div data-i18n="hero.archF2" class="p-2.5 rounded-xl bg-white/5 border border-white/10">✅ Umrah Visa &amp; Insurance</div>
-                <div data-i18n="hero.archF3" class="p-2.5 rounded-xl bg-white/5 border border-white/10">✅ 3x Indian Buffet Meals</div>
-                <div data-i18n="hero.archF4" class="p-2.5 rounded-xl bg-white/5 border border-white/10">✅ Guided Aalim Ziyarat</div>
+                <div class="p-2.5 rounded-xl bg-white/5 border border-white/10">✅ Saudia Airlines Flight</div>
+                <div class="p-2.5 rounded-xl bg-white/5 border border-white/10">✅ Hotel Accommodations</div>
+                <div class="p-2.5 rounded-xl bg-white/5 border border-white/10">✅ Meals &amp; Catering</div>
+                <div class="p-2.5 rounded-xl bg-white/5 border border-white/10">✅ Ground Transportation</div>
               </div>
 
-              <a data-whatsapp-general href="https://wa.me/919405070008" target="_blank" rel="noopener noreferrer"
+              <a data-whatsapp-general href="https://wa.me/919405070008?text=Assalamu%20Alaikum%20Haji%20Aslam%20Jamkhed%2C%20I%20am%20interested%20in%20the%20Special%2015%20Days%20Umrah%20Package%20(20%20December%20Group%20at%20%E2%82%B995%2C000).%20Please%20share%20details." target="_blank" rel="noopener noreferrer"
                  class="w-full py-3.5 px-5 rounded-xl bg-[#25D366] hover:bg-[#1DA851] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition">
-                <span data-i18n="hero.btnChatExpert">Chat with Umrah Expert on WhatsApp</span>
+                <span>Book 20 Dec Umrah on WhatsApp</span>
               </a>
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- VIEW 2: HAJJ 2027 HERO CONTENT (SHOWN WHEN HAJJ IS ACTIVE) -->
+      <div id="hero-content-hajj" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <!-- Left Column: Hajj Headline & Value Proposition -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-amber-400/15 border border-amber-400/40 text-amber-300 text-xs md:text-sm font-semibold">
+            <span class="font-arabic text-base">لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ</span>
+            <span>•</span>
+            <span>Official Brochure • Hajj 2027 Bookings Open with 20% Advance</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-5xl lg:text-[50px] font-extrabold font-serif-islamic leading-[1.15] tracking-tight">
+            HAJJ 2027 <span class="text-gold-gradient">The Journey of a Lifetime</span>
+          </h1>
+
+          <p class="text-base md:text-lg text-emerald-100/90 max-w-2xl leading-relaxed">
+            Trusted travel partner for a sacred journey. Platinum 5-Star 36 Days Shifting Package featuring Hilton Tower Makkah, Central Markazia Madinah, Saudi Airlines Direct, and Category B (Zone 2) Mina AC Tents.
+          </p>
+
+          <!-- Key Pill Highlights -->
+          <div class="flex flex-wrap gap-2.5 pt-1 text-xs font-semibold">
+            <span class="px-3.5 py-1.5 rounded-lg bg-white/10 border border-white/15 text-amber-200">🏨 Hilton Tower Makkah</span>
+            <span class="px-3.5 py-1.5 rounded-lg bg-white/10 border border-white/15 text-amber-200">✈️ Saudi Airlines Direct</span>
+            <span class="px-3.5 py-1.5 rounded-lg bg-white/10 border border-white/15 text-amber-200">⛺ Zone 2 Mina AC Tents</span>
+            <span class="px-3.5 py-1.5 rounded-lg bg-white/10 border border-white/15 text-amber-200">💳 20% Advance Booking</span>
+          </div>
+
+          <!-- Primary CTA Buttons -->
+          <div class="pt-3 flex flex-wrap items-center gap-4">
+            <a href="#hajj-2027-section"
+               class="px-7 py-4 rounded-xl bg-gold-gradient text-emerald-950 font-extrabold text-sm md:text-base shadow-xl hover:scale-[1.01] transition flex items-center gap-2">
+              <span>View Official Hajj Rates (₹7.50L–₹8.10L) →</span>
+            </a>
+            <a href="https://wa.me/919405070008?text=Assalamu%20Alaikum%20Haji%20Aslam%20Jamkhed%2C%20please%20share%20the%20HAJJ%202027%20brochure%20and%20registration%20details." target="_blank" rel="noopener noreferrer"
+               class="px-6 py-4 rounded-xl bg-[#25D366] hover:bg-[#1DA851] text-white font-bold text-sm md:text-base transition flex items-center gap-2 shadow-lg">
+              <span>💬 Enquire Hajj on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: Featured Hajj Card -->
+        <div class="lg:col-span-5">
+          <div class="bg-gradient-to-b from-[#0B4F3A] to-[#041F17] p-1 rounded-t-[140px] rounded-b-3xl border-2 border-amber-400/60 shadow-2xl">
+            <div class="bg-[#062E22]/90 rounded-t-[136px] rounded-b-[20px] p-6 md:p-8 text-center space-y-5 relative overflow-hidden">
+              <div class="font-arabic text-2xl md:text-3xl text-amber-300 pt-2">
+                لَبَّيْكَ اللَّهُمَّ حَجًّا
+              </div>
+              <div class="w-20 h-20 mx-auto rounded-full bg-gold-gradient flex items-center justify-center text-4xl shadow-lg border-4 border-emerald-900">
+                🕋
+              </div>
+              <div>
+                <span class="text-xs uppercase tracking-widest text-amber-300 font-bold">Platinum 5-Star 36 Days</span>
+                <h2 class="text-2xl font-bold font-serif-islamic text-white mt-1">Hajj 2027 Shifting Package</h2>
+                <p class="text-xs text-emerald-200 mt-1">Hilton Tower Makkah • Central Markazia Madinah</p>
+              </div>
+
+              <div class="bg-emerald-950/80 rounded-2xl p-4 border border-amber-400/30">
+                <div class="text-xs text-emerald-200">5-Star Sharing Rates Starting From</div>
+                <div class="text-3xl md:text-4xl font-extrabold text-amber-300 mt-0.5">₹7,50,000 <span class="text-sm font-normal text-emerald-200">/ person*</span></div>
+                <div class="text-[11px] text-emerald-300/90 mt-1">5-Bed ₹7.50L • 4-Bed ₹7.70L • 3-Bed ₹7.90L • 2-Bed ₹8.10L</div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2.5 text-left text-xs text-emerald-100">
+                <div class="p-2.5 rounded-xl bg-white/5 border border-white/10">✅ Hilton Tower Makkah</div>
+                <div class="p-2.5 rounded-xl bg-white/5 border border-white/10">✅ Saudi Airlines Direct</div>
+                <div class="p-2.5 rounded-xl bg-white/5 border border-white/10">✅ Category B Mina AC Tents</div>
+                <div class="p-2.5 rounded-xl bg-white/5 border border-white/10">✅ Complete 36 Days Schedule</div>
+              </div>
+
+              <a data-whatsapp-general href="https://wa.me/919405070008?text=Assalamu%20Alaikum%20Haji%20Aslam%20Jamkhed%2C%20I%20am%20interested%20in%20HAJJ%202027%20Platinum%20Package.%20Please%20share%20details." target="_blank" rel="noopener noreferrer"
+                 class="w-full py-3.5 px-5 rounded-xl bg-[#25D366] hover:bg-[#1DA851] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition">
+                <span>Book Hajj 2027 on WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
 
       </div>
 
@@ -657,6 +768,28 @@
   </section>
 
   <!-- ========================================================================
+       SWITCHER INVITE: When in Hajj mode, invite user to check Umrah packages
+       ======================================================================== -->
+  <div id="umrah-switcher-invite" class="hidden py-8 bg-[#041F17] border-y border-amber-400/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-gradient-to-r from-emerald-950 via-[#0B4F3A] to-emerald-900 p-6 md:p-8 rounded-3xl border-2 border-amber-400/50 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-5 text-white">
+        <div class="flex items-center gap-4 text-center md:text-left">
+          <span class="text-4xl shrink-0">✨</span>
+          <div>
+            <div class="text-xs uppercase tracking-wider text-amber-300 font-bold">Also Looking for Umrah?</div>
+            <h3 class="text-xl md:text-2xl font-bold font-serif-islamic mt-0.5">Special 15 Days Umrah Package (20 Dec Group)</h3>
+            <p class="text-xs md:text-sm text-emerald-200 mt-1">Saudia Airlines Direct • Walking Distance Makkah 500m &amp; Madinah 250m • Starting from ₹78,000</p>
+          </div>
+        </div>
+        <button type="button" data-journey-btn="umrah"
+                class="px-7 py-3.5 rounded-xl bg-gold-gradient text-emerald-950 font-extrabold text-sm shadow-xl transition shrink-0 hover:scale-105 cursor-pointer">
+          Switch to Umrah Packages &amp; Calculator →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
        6. INTERACTIVE UMRAH COST ESTIMATOR (INSTANT FAMILY QUOTE)
        ======================================================================== -->
   <section id="cost-estimator" class="py-16 md:py-20 bg-islamic-pattern text-white relative">
@@ -843,6 +976,28 @@
   </section>
 
   <!-- ========================================================================
+       SWITCHER INVITE: When in Umrah mode, invite user to check Hajj 2027
+       ======================================================================== -->
+  <div id="hajj-switcher-invite" class="py-8 bg-[#041F17] border-y border-amber-400/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-gradient-to-r from-[#041F17] via-[#0B4F3A] to-[#062E22] p-6 md:p-8 rounded-3xl border-2 border-amber-400/50 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-5 text-white">
+        <div class="flex items-center gap-4 text-center md:text-left">
+          <span class="text-4xl shrink-0">🕋</span>
+          <div>
+            <div class="text-xs uppercase tracking-wider text-amber-300 font-bold">Planning for Hajj 2027?</div>
+            <h3 class="text-xl md:text-2xl font-bold font-serif-islamic mt-0.5">HAJJ 2027 — Platinum 36-Days Shifting Package</h3>
+            <p class="text-xs md:text-sm text-emerald-200 mt-1">Hilton Tower Makkah • Saudi Airlines Direct • Zone 2 Mina AC Tents • Rates from ₹7,50,000</p>
+          </div>
+        </div>
+        <button type="button" data-journey-btn="hajj"
+                class="px-7 py-3.5 rounded-xl bg-gold-gradient text-emerald-950 font-extrabold text-sm shadow-xl transition shrink-0 hover:scale-105 cursor-pointer">
+          Switch to Hajj 2027 Details →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
        7. HAJJ PACKAGES & CUSTOM FAMILY / ZIYARAT TOURS
        ======================================================================== -->
   <section id="hajj-custom-tours" class="py-16 md:py-20 bg-islamic-light">
@@ -1025,7 +1180,7 @@
                 <div class="mt-0.5 flex flex-wrap gap-3 font-extrabold text-emerald-950 text-base">
                   <a data-agency-phone-primary href="tel:+919405070008" class="text-amber-700 hover:text-emerald-700">+91 94050 70008</a>
                   <span class="text-slate-300">|</span>
-                  <a data-agency-phone-secondary href="tel:+91234035689" class="hover:text-emerald-700">+91 23403 5689</a>
+                  <a data-agency-phone-secondary href="tel:+919028141323" class="hover:text-emerald-700">+91 90281 41323</a>
                 </div>
               </div>
             </div>
@@ -1035,7 +1190,7 @@
               <div>
                 <div data-i18n="contact.officeTitle" class="text-xs font-bold uppercase tracking-wider text-slate-400">Office &amp; Web Portals</div>
                 <p data-agency-address class="text-xs md:text-sm font-semibold text-slate-800 mt-0.5 leading-relaxed">
-                  Ummat International, Jamkhed / Mumbai, Maharashtra, India
+                  H. No. 8449, Shop No. 2, Tekale Wasti, Jamkhed, Ahmed Nagar, Maharashtra, India
                 </p>
                 <div class="mt-1 text-xs font-bold text-emerald-800">
                   🌐 Official Web: <a href="https://www.ummats.com" target="_blank" rel="noopener noreferrer" class="underline">www.ummats.com</a>
@@ -1207,7 +1362,7 @@
             Ummat International, Jamkhed / Mumbai, Maharashtra, India
           </p>
           <p class="text-xs font-bold text-white">
-            Helpline: <a data-agency-phone-primary href="tel:+919405070008" class="text-amber-300 hover:underline">+91 94050 70008</a>
+            Helpline: <a data-agency-phone-primary href="tel:+919405070008" class="text-amber-300 hover:underline">+91 94050 70008</a> / <a data-agency-phone-secondary href="tel:+919028141323" class="text-amber-300 hover:underline">+91 90281 41323</a>
           </p>
           <p class="text-xs mt-1">
             Web: <a href="https://www.ummats.com" target="_blank" rel="noopener noreferrer" class="text-amber-200 hover:underline">www.ummats.com</a>

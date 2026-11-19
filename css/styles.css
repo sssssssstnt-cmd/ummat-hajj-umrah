@@ -244,3 +244,23 @@ html[lang="mr"] body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* ============================================================================
+   HAJJ / UMRAH MODE SWITCHER STYLES
+   ============================================================================ */
+.journey-tab-btn {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.journey-tab-btn.active {
+  background: linear-gradient(135deg, #E5C453 0%, #D4AF37 55%, #B48A1E 100%);
+  color: #041F17 !important;
+  font-weight: 800;
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.4);
+  transform: translateY(-1px);
+}
+
+.journey-view-transition {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
