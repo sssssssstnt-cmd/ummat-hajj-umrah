@@ -32,6 +32,17 @@
     return "₹" + rounded.toLocaleString("en-IN");
   }
 
+  // Security Helper: Escape untrusted HTML characters to prevent DOM-based XSS
+  function escapeHTML(str) {
+    if (typeof str !== "string") return "";
+    return str
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
   // Build WhatsApp URL with pre-filled encoded message
   function buildWhatsAppURL(messageText) {
     const cleanPhone = (CONFIG.agency.whatsappNumber || "919405070008").replace(/\D/g, "");
@@ -762,6 +773,21 @@
 
       if (!fullName || !phone) return;
 
+      const cleanDigits = phone.replace(/\D/g, "");
+      if (cleanDigits.length < 10) {
+        if (statusBanner) {
+          statusBanner.classList.remove("hidden");
+          statusBanner.innerHTML = `
+            <div class="p-3.5 rounded-xl bg-amber-50 border border-amber-300 text-amber-900 text-xs font-semibold">
+              ⚠️ Please enter a valid 10-digit mobile number so we can reach you on WhatsApp.
+            </div>
+          `;
+        }
+        return;
+      }
+
+      const safeFullName = escapeHTML(fullName);
+
       // Optional: Send to Web3Forms in background if access key is configured
       if (CONFIG.agency.web3FormsAccessKey) {
         try {
@@ -803,7 +829,7 @@
         statusBanner.classList.remove("hidden");
         statusBanner.innerHTML = `
           <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-950 text-xs md:text-sm">
-            <strong class="block font-bold text-emerald-900">JazakAllah Khair, ${fullName}!</strong>
+            <strong class="block font-bold text-emerald-900">JazakAllah Khair, ${safeFullName}!</strong>
             Opening WhatsApp to connect you directly with our Umrah counselor. If WhatsApp did not open automatically,
             <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="underline font-bold text-emerald-800">click here to send your message</a>.
           </div>
