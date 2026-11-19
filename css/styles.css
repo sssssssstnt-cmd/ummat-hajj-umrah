@@ -245,22 +245,56 @@ html[lang="mr"] body {
 }
 
 /* ============================================================================
-   HAJJ / UMRAH MODE SWITCHER STYLES
+   HAJJ / UMRAH MODE SWITCHER STYLES & GENERATIVE UI ENHANCEMENTS
    ============================================================================ */
 .journey-tab-btn {
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  position: relative;
+  user-select: none;
 }
 
 .journey-tab-btn.active {
   background: linear-gradient(135deg, #E5C453 0%, #D4AF37 55%, #B48A1E 100%);
   color: #041F17 !important;
   font-weight: 800;
-  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.4);
+  box-shadow: 0 4px 18px rgba(212, 175, 55, 0.45);
   transform: translateY(-1px);
 }
 
-.journey-view-transition {
-  transition: opacity 0.3s ease, transform 0.3s ease;
+.journey-tab-btn:hover:not(.active) {
+  background-color: rgba(255, 255, 255, 0.08);
 }
+
+.journey-view-transition {
+  animation: journeyFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes journeyFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#floating-journey-pill {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  will-change: transform, opacity;
+}
+
+#floating-journey-pill.pill-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 20px);
+}
+
+/* Luxury Flyer Badge Glow */
+.flyer-glow-border {
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.25), inset 0 0 15px rgba(212, 175, 55, 0.1);
+}
+
 

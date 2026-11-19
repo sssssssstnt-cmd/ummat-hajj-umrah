@@ -174,15 +174,21 @@
 
     const isHajj = mode === "hajj";
 
-    // Toggle Hero contents
+    // Toggle Hero contents with smooth generative transition
     const heroUmrah = document.getElementById("hero-content-umrah");
     const heroHajj = document.getElementById("hero-content-hajj");
     if (heroUmrah && heroHajj) {
       if (isHajj) {
         heroUmrah.classList.add("hidden");
         heroHajj.classList.remove("hidden");
+        heroHajj.classList.remove("journey-view-transition");
+        void heroHajj.offsetWidth; // Force DOM reflow for animation restart
+        heroHajj.classList.add("journey-view-transition");
       } else {
         heroUmrah.classList.remove("hidden");
+        heroUmrah.classList.remove("journey-view-transition");
+        void heroUmrah.offsetWidth; // Force DOM reflow for animation restart
+        heroUmrah.classList.add("journey-view-transition");
         heroHajj.classList.add("hidden");
       }
     }
@@ -195,8 +201,16 @@
     const umrahInvite = document.getElementById("umrah-switcher-invite");
 
     if (isHajj) {
-      if (hajjSec) hajjSec.classList.remove("hidden");
-      if (umrahInvite) umrahInvite.classList.remove("hidden");
+      if (hajjSec) {
+        hajjSec.classList.remove("hidden");
+        hajjSec.classList.remove("journey-view-transition");
+        void hajjSec.offsetWidth;
+        hajjSec.classList.add("journey-view-transition");
+      }
+      if (umrahInvite) {
+        umrahInvite.classList.remove("hidden");
+        umrahInvite.classList.add("journey-view-transition");
+      }
       if (umrahSec) umrahSec.classList.add("hidden");
       if (calcSec) calcSec.classList.add("hidden");
       if (hajjInvite) hajjInvite.classList.add("hidden");
@@ -205,9 +219,20 @@
         hajjSec.scrollIntoView({ behavior: "smooth" });
       }
     } else {
-      if (umrahSec) umrahSec.classList.remove("hidden");
-      if (calcSec) calcSec.classList.remove("hidden");
-      if (hajjInvite) hajjInvite.classList.remove("hidden");
+      if (umrahSec) {
+        umrahSec.classList.remove("hidden");
+        umrahSec.classList.remove("journey-view-transition");
+        void umrahSec.offsetWidth;
+        umrahSec.classList.add("journey-view-transition");
+      }
+      if (calcSec) {
+        calcSec.classList.remove("hidden");
+        calcSec.classList.add("journey-view-transition");
+      }
+      if (hajjInvite) {
+        hajjInvite.classList.remove("hidden");
+        hajjInvite.classList.add("journey-view-transition");
+      }
       if (hajjSec) hajjSec.classList.add("hidden");
       if (umrahInvite) umrahInvite.classList.add("hidden");
 

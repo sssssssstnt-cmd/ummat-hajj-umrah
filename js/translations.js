@@ -16,6 +16,18 @@ window.UMMAT_TRANSLATIONS = {
       hajjOpen: "Hajj 2027 Booking Open (20% Advance) →",
       helplinePrefix: "📞 Haji Aslam: "
     },
+    switcher: {
+      chooseJourney: "Choose Your Sacred Journey",
+      chooseJourneySub: "Select Umrah or Hajj to view dedicated package details",
+      tabUmrah: "✨ 15-Days Umrah Packages",
+      badgeUmrah: "From ₹78k",
+      tabHajj: "🕋 Hajj 2027 Platinum",
+      badgeHajj: "36-Days",
+      specialGroupBadge: "20 December Special Group",
+      specialGroupTitle: "Special 15 Days Umrah Package",
+      switchToHajj: "Switch to Hajj 2027 Details →",
+      switchToUmrah: "Switch to Umrah Packages & Calculator →"
+    },
     nav: {
       hajjBadge: "Platinum",
       hajj2027: "Hajj 2027",
@@ -160,6 +172,18 @@ window.UMMAT_TRANSLATIONS = {
       departures: "जामखेड • मुंबई • पुणे • अहमदनगर • औरंगाबाद • हैदराबाद",
       hajjOpen: "हज 2027 बुकिंग शुरू (20% अग्रिम) →",
       helplinePrefix: "📞 हाजी असलम: "
+    },
+    switcher: {
+      chooseJourney: "अपनी मुकद्दस यात्रा चुनें",
+      chooseJourneySub: "समर्पित पैकेज विवरण देखने के लिए उमरा या हज चुनें",
+      tabUmrah: "✨ 15-दिवसीय उमरा पैकेज",
+      badgeUmrah: "₹78k से",
+      tabHajj: "🕋 हज 2027 प्लेटिनम",
+      badgeHajj: "36-दिन",
+      specialGroupBadge: "20 दिसंबर स्पेशल ग्रुप",
+      specialGroupTitle: "स्पेशल 15 दिन उमरा पैकेज",
+      switchToHajj: "हज 2027 विवरण देखें →",
+      switchToUmrah: "उमरा पैकेज और कैलकुलेटर देखें →"
     },
     nav: {
       hajjBadge: "प्लैटिनम",
@@ -306,6 +330,18 @@ window.UMMAT_TRANSLATIONS = {
       hajjOpen: "हज 2027 बुकिंग सुरू (20% ॲडव्हान्स) →",
       helplinePrefix: "📞 हाजी असलम: "
     },
+    switcher: {
+      chooseJourney: "आपली पवित्र यात्रा निवडा",
+      chooseJourneySub: "समर्पित पॅकेज तपशील पाहण्यासाठी उमरा किंवा हज निवडा",
+      tabUmrah: "✨ 15-दिवसीय उमरा पॅकेजेस",
+      badgeUmrah: "₹78k पासून",
+      tabHajj: "🕋 हज 2027 प्लॅटिनम",
+      badgeHajj: "36-दिवस",
+      specialGroupBadge: "20 डिसेंबर स्पेशल ग्रुप",
+      specialGroupTitle: "स्पेशल 15 दिवस उमरा पॅकेज",
+      switchToHajj: "हज 2027 तपशीलाकडे जा →",
+      switchToUmrah: "उमरा पॅकेजेस आणि कॅल्क्युलेटरकडे जा →"
+    },
     nav: {
       hajjBadge: "प्लॅटिनम",
       hajj2027: "हज 2027",
@@ -450,6 +486,18 @@ window.UMMAT_TRANSLATIONS = {
       departures: "جامکھیڈ • ممبئی • پونے • احمد نگر • اورنگ آباد • حیدرآباد",
       hajjOpen: "حج ۲۰۲۷ بکنگ جاری (۲۰٪ پیشگی رقم) ←",
       helplinePrefix: "📞 حاجی اسلم: "
+    },
+    switcher: {
+      chooseJourney: "اپنا مقدس سفر منتخب کریں",
+      chooseJourneySub: "مخصوص پیکیج کی تفصیلات دیکھنے کے لیے عمرہ یا حج کا انتخاب کریں",
+      tabUmrah: "✨ ۱۵ روزہ عمرہ پیکیجز",
+      badgeUmrah: "۷۸ ہزار سے",
+      tabHajj: "🕋 حج ۲۰۲۷ پلاٹینم",
+      badgeHajj: "۳۶ ایام",
+      specialGroupBadge: "۲۰ دسمبر اسپیشل گروپ",
+      specialGroupTitle: "خصوصی ۱۵ روزہ عمرہ پیکیج",
+      switchToHajj: "حج ۲۰۲۷ کی تفصیلات دیکھیں ←",
+      switchToUmrah: "عمرہ پیکیجز اور کیلکولیٹر دیکھیں ←"
     },
     nav: {
       hajjBadge: "پلاٹینم",
