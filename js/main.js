@@ -1043,6 +1043,39 @@
   }
 
   // Mobile Navbar Toggle
+    // Handle Tutorial Tabs (Umrah vs Hajj)
+  function initTutorialTabs() {
+    const tabBtns = document.querySelectorAll("[data-tutorial-tab]");
+    const umrahPanel = document.getElementById("tutorial-panel-umrah");
+    const hajjPanel = document.getElementById("tutorial-panel-hajj");
+
+    if (!tabBtns.length || !umrahPanel || !hajjPanel) return;
+
+    tabBtns.forEach((btn) => {
+      btn.addEventListener("click", function () {
+        const tab = this.getAttribute("data-tutorial-tab");
+
+        tabBtns.forEach((b) => {
+          if (b.getAttribute("data-tutorial-tab") === tab) {
+            b.classList.add("active", "text-amber-950", "bg-gold-gradient");
+            b.classList.remove("text-emerald-200");
+          } else {
+            b.classList.remove("active", "text-amber-950", "bg-gold-gradient");
+            b.classList.add("text-emerald-200");
+          }
+        });
+
+        if (tab === "hajj") {
+          umrahPanel.classList.add("hidden");
+          hajjPanel.classList.remove("hidden");
+        } else {
+          hajjPanel.classList.add("hidden");
+          umrahPanel.classList.remove("hidden");
+        }
+      });
+    });
+  }
+
   function initMobileMenu() {
     const toggleBtn = document.getElementById("mobile-menu-btn");
     const mobileMenu = document.getElementById("mobile-menu-panel");
@@ -1098,6 +1131,7 @@
     renderDocumentsAndFAQs();
     initCallbackForm();
     initMobileMenu();
+    initTutorialTabs();
 
     // Check URL parameters e.g. ?journey=hajj or location hash
     const urlParams = new URLSearchParams(window.location.search);
