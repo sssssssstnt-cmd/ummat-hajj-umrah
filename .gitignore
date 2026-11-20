@@ -3,3 +3,6 @@ Thumbs.db
 *.log
 .env
 node_modules/
+whatsapp-preview/
+whatsapp_customer_preview.md
+whatsapp_customer_preview.pdf

@@ -866,41 +866,16 @@
       if (cleanDigits.length < 10) {
         if (statusBanner) {
           statusBanner.classList.remove("hidden");
-          statusBanner.innerHTML = `
-            <div class="p-3.5 rounded-xl bg-amber-50 border border-amber-300 text-amber-900 text-xs font-semibold">
-              ⚠️ Please enter a valid 10-digit mobile number so we can reach you on WhatsApp.
-            </div>
-          `;
+          statusBanner.textContent = "";
+          const warnBox = document.createElement("div");
+          warnBox.className = "p-3.5 rounded-xl bg-amber-50 border border-amber-300 text-amber-900 text-xs font-semibold";
+          warnBox.textContent = "⚠️ Please enter a valid 10-digit mobile number so we can reach you on WhatsApp.";
+          statusBanner.appendChild(warnBox);
         }
         return;
       }
 
-      const safeFullName = escapeHTML(fullName);
-
-      // Optional: Send to Web3Forms in background if access key is configured
-      if (CONFIG.agency.web3FormsAccessKey) {
-        try {
-          await fetch("https://api.web3forms.com/submit", {
-            method: "POST",
-            headers: { "Content-Type": "application/json", Accept: "application/json" },
-            body: JSON.stringify({
-              access_key: CONFIG.agency.web3FormsAccessKey,
-              subject: `New Pilgrim Callback Request from ${fullName} (${city})`,
-              from_name: CONFIG.agency.fullName,
-              name: fullName,
-              phone: phone,
-              city: city,
-              service_interested: service,
-              number_of_pilgrims: pilgrims,
-              notes: notes
-            })
-          });
-        } catch (err) {
-          console.warn("Web3Forms background submission skipped:", err);
-        }
-      }
-
-      // Build structured WhatsApp Callback message
+      // Build structured WhatsApp Callback message (100% client-side, zero third-party API calls)
       const waMessage =
         `Assalamu Alaikum ${CONFIG.agency.fullName},\n\n` +
         `Please call me back regarding an Umrah/Hajj booking:\n` +
@@ -916,13 +891,31 @@
 
       if (statusBanner) {
         statusBanner.classList.remove("hidden");
-        statusBanner.innerHTML = `
-          <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-950 text-xs md:text-sm">
-            <strong class="block font-bold text-emerald-900">JazakAllah Khair, ${safeFullName}!</strong>
-            Opening WhatsApp to connect you directly with our Umrah counselor. If WhatsApp did not open automatically,
-            <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="underline font-bold text-emerald-800">click here to send your message</a>.
-          </div>
-        `;
+        statusBanner.textContent = "";
+        const okBox = document.createElement("div");
+        okBox.className = "p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-950 text-xs md:text-sm";
+
+        const titleEl = document.createElement("strong");
+        titleEl.className = "block font-bold text-emerald-900";
+        titleEl.textContent = `JazakAllah Khair, ${fullName}!`;
+        okBox.appendChild(titleEl);
+
+        okBox.appendChild(
+          document.createTextNode(
+            "Opening WhatsApp to connect you directly with our Umrah counselor. If WhatsApp did not open automatically, "
+          )
+        );
+
+        const linkEl = document.createElement("a");
+        linkEl.href = waUrl;
+        linkEl.target = "_blank";
+        linkEl.rel = "noopener noreferrer";
+        linkEl.className = "underline font-bold text-emerald-800";
+        linkEl.textContent = "click here to send your message";
+        okBox.appendChild(linkEl);
+        okBox.appendChild(document.createTextNode("."));
+
+        statusBanner.appendChild(okBox);
       }
 
       window.open(waUrl, "_blank", "noopener,noreferrer");

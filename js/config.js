@@ -26,7 +26,6 @@ window.UMMAT_CONFIG = {
     address: "H. No. 8449, Shop No. 2, Tekale Wasti, Jamkhed, Ahmed Nagar, Maharashtra, India",
     branchCities: "Jamkhed • Mumbai • Pune • Ahmednagar • Aurangabad • Hyderabad",
     workingHours: "Daily: 9:00 AM to 10:00 PM (Direct Pilgrim Helpline Open 24/7)",
-    web3FormsAccessKey: "",
     stats: [
       { value: "Thousands", label: "Of Pilgrims Served with Trust" },
       { value: "Zone 2", label: "Category B Mina Luxury Tents" },
