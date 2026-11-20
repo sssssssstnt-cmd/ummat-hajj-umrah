@@ -81,6 +81,13 @@
     });
 
     document.querySelectorAll("[data-agency-branches]").forEach((el) => {
+      if (el.hasAttribute("data-i18n")) {
+        const trVal = getTranslation(el.getAttribute("data-i18n"));
+        if (trVal) {
+          el.textContent = trVal;
+          return;
+        }
+      }
       el.textContent = CONFIG.agency.branchCities;
     });
 
@@ -94,10 +101,17 @@
       el.href = buildWhatsAppURL(msgs[currentLang] || msgs.en);
     });
 
-    // Stats strip
+    // Stats strip (fully localized)
     const statsContainer = document.getElementById("agency-stats-grid");
-    if (statsContainer && Array.isArray(CONFIG.agency.stats)) {
-      statsContainer.innerHTML = CONFIG.agency.stats
+    if (statsContainer) {
+      const s = getTranslation("stats") || {};
+      const statsList = [
+        { value: s.thousandsVal || "Thousands", label: s.thousandsLabel || "Of Pilgrims Served with Trust" },
+        { value: s.minaVal || "Zone 2", label: s.minaLabel || "Category B Mina Luxury Tents" },
+        { value: s.hiltonVal || "Hilton", label: s.hiltonLabel || "Makkah Sharif Tower Hotel" },
+        { value: s.saudiVal || "Saudi Airlines", label: s.saudiLabel || "Direct Flights Included" }
+      ];
+      statsContainer.innerHTML = statsList
         .map(
           (st) => `
           <div class="text-center px-4 py-3">
@@ -130,12 +144,16 @@
       }
     });
 
-    // Update all elements with data-i18n
+    // Update all elements with data-i18n (supports safe inline markup)
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       const key = el.getAttribute("data-i18n");
       const text = getTranslation(key);
-      if (text) {
-        el.textContent = text;
+      if (text !== undefined && text !== null && text !== "") {
+        if (typeof text === "string" && text.includes("<") && text.includes(">")) {
+          el.innerHTML = text;
+        } else {
+          el.textContent = text;
+        }
       }
     });
 
@@ -150,6 +168,10 @@
 
     hydrateAgencyMetadata();
     renderUmrahPackages();
+    populateCostEstimatorDropdowns();
+    populateCallbackFormDropdowns();
+    renderSpecialServices();
+    renderDocumentsAndFAQs();
     calculateUmrahEstimate();
   }
 
@@ -247,9 +269,27 @@
     const grid = document.getElementById("umrah-packages-grid");
     if (!grid) return;
 
+    const pkgI18n = window.UMMAT_PACKAGES_I18N || {};
+    const ui = (pkgI18n.ui && (pkgI18n.ui[currentLang] || pkgI18n.ui.en)) || {};
+    const langPkgs = (pkgI18n.packages && pkgI18n.packages[currentLang]) || {};
+
     grid.innerHTML = CONFIG.umrahPackages
       .map((pkg) => {
         cardSharingState[pkg.id] = "quad";
+        const loc = langPkgs[pkg.id] || {};
+        const viewPkg = {
+          ...pkg,
+          title: loc.title || pkg.title,
+          subtitle: loc.subtitle || pkg.subtitle,
+          badge: loc.badge || pkg.badge,
+          duration: loc.duration || pkg.duration,
+          nightsSplit: loc.nightsSplit || pkg.nightsSplit,
+          makkahHotel: { ...pkg.makkahHotel, ...(loc.makkahHotel || {}) },
+          madinahHotel: { ...pkg.madinahHotel, ...(loc.madinahHotel || {}) },
+          flights: loc.flights || pkg.flights,
+          meals: loc.meals || pkg.meals,
+          highlights: loc.highlights || pkg.highlights
+        };
 
         const badgeClass =
           pkg.badgeType === "gold"
@@ -260,7 +300,7 @@
 
         const featuredBorder = pkg.featured ? "package-card-featured ring-2 ring-amber-400/70" : "";
 
-        const defaultWhatsAppMsg = buildPackageWhatsAppMessage(pkg, "quad", pkg.basePriceQuad);
+        const defaultWhatsAppMsg = buildPackageWhatsAppMessage(viewPkg, "quad", pkg.basePriceQuad);
 
         return `
         <article id="card-${pkg.id}" class="package-card ${featuredBorder} bg-white rounded-2xl overflow-hidden flex flex-col justify-between relative shadow-md">
@@ -270,44 +310,44 @@
               <div class="flex items-center justify-between gap-2 mb-3">
                 <span class="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider px-3 py-1 rounded-full ${badgeClass}">
                   <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                  ${pkg.badge}
+                  ${viewPkg.badge}
                 </span>
                 <span class="text-xs font-medium bg-white/10 text-amber-200 px-2.5 py-1 rounded-md border border-white/15">
-                  ${pkg.duration}
+                  ${viewPkg.duration}
                 </span>
               </div>
-              <h3 class="text-xl md:text-2xl font-bold font-serif-islamic text-white leading-snug">${pkg.title}</h3>
-              <p class="text-xs md:text-sm text-emerald-100/85 mt-1">${pkg.subtitle}</p>
+              <h3 class="text-xl md:text-2xl font-bold font-serif-islamic text-white leading-snug">${viewPkg.title}</h3>
+              <p class="text-xs md:text-sm text-emerald-100/85 mt-1">${viewPkg.subtitle}</p>
               <div class="mt-3 pt-3 border-t border-white/10 flex items-center gap-2 text-xs text-amber-300 font-medium">
                 <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                <span>${pkg.nightsSplit}</span>
+                <span>${viewPkg.nightsSplit}</span>
               </div>
             </div>
 
             <!-- Interactive Room Sharing Price Switcher -->
             <div class="p-6 pb-4 bg-gradient-to-b from-amber-50/60 to-white border-b border-slate-100">
               <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Select Room Sharing:</span>
-                <span id="sharing-desc-${pkg.id}" class="text-xs text-emerald-800 font-semibold">4 Beds / Room</span>
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">${ui.selectSharing || "Select Room Sharing:"}</span>
+                <span id="sharing-desc-${pkg.id}" class="text-xs text-emerald-800 font-semibold">${ui.bedsQuad || "4 Beds / Room"}</span>
               </div>
               <div class="grid grid-cols-3 gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200/80" role="tablist">
                 <button type="button" data-pkg-id="${pkg.id}" data-sharing="quad" class="sharing-pill active text-xs font-bold py-2 px-2 rounded-lg text-center cursor-pointer">
-                  Quad (4)
+                  ${ui.quadTab || "Quad (4)"}
                 </button>
                 <button type="button" data-pkg-id="${pkg.id}" data-sharing="triple" class="sharing-pill text-xs font-bold py-2 px-2 rounded-lg text-slate-600 hover:text-emerald-900 text-center cursor-pointer">
-                  Triple (3)
+                  ${ui.tripleTab || "Triple (3)"}
                 </button>
                 <button type="button" data-pkg-id="${pkg.id}" data-sharing="double" class="sharing-pill text-xs font-bold py-2 px-2 rounded-lg text-slate-600 hover:text-emerald-900 text-center cursor-pointer">
-                  Double (2)
+                  ${ui.doubleTab || "Double (2)"}
                 </button>
               </div>
 
               <!-- Live Price Display -->
               <div class="mt-4 pt-3 border-t border-slate-200/60">
                 <div class="flex items-center justify-between gap-2 mb-1">
-                  <span class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide">Starting From (All-Inclusive)</span>
+                  <span class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide">${ui.startingFrom || "Starting From (All-Inclusive)"}</span>
                   <span class="inline-block bg-emerald-100 text-emerald-900 text-[11px] font-bold px-2.5 py-0.5 rounded-md shrink-0">
-                    Per Person
+                    ${ui.perPerson || "Per Person"}
                   </span>
                 </div>
                 <div class="flex items-baseline justify-between gap-2 flex-wrap">
@@ -315,7 +355,7 @@
                     <span id="price-${pkg.id}" class="text-2xl sm:text-3xl font-extrabold text-emerald-900 tracking-tight">${formatINR(pkg.basePriceQuad)}</span>
                     <span id="orig-price-${pkg.id}" class="text-xs text-slate-400 line-through font-medium">${formatINR(pkg.originalPrice)}</span>
                   </div>
-                  <span class="text-[11px] text-emerald-800 font-semibold">Book w/ ₹20,000</span>
+                  <span class="text-[11px] text-emerald-800 font-semibold">${ui.bookAdvance || "Book w/ ₹20,000"}</span>
                 </div>
               </div>
             </div>
@@ -328,9 +368,9 @@
                     🕋
                   </div>
                   <div class="text-xs">
-                    <div class="font-bold text-emerald-950 uppercase tracking-wide">Makkah Hotel • <span class="text-amber-700">${pkg.makkahHotel.distance}</span></div>
-                    <div class="text-slate-700 font-medium mt-0.5">${pkg.makkahHotel.name}</div>
-                    <div class="text-emerald-700 text-[11px] mt-0.5 font-semibold">${pkg.makkahHotel.shuttle}</div>
+                    <div class="font-bold text-emerald-950 uppercase tracking-wide">${ui.makkahHotel || "Makkah Hotel"} • <span class="text-amber-700">${viewPkg.makkahHotel.distance}</span></div>
+                    <div class="text-slate-700 font-medium mt-0.5">${viewPkg.makkahHotel.name}</div>
+                    <div class="text-emerald-700 text-[11px] mt-0.5 font-semibold">${viewPkg.makkahHotel.shuttle}</div>
                   </div>
                 </div>
               </div>
@@ -341,9 +381,9 @@
                     🕌
                   </div>
                   <div class="text-xs">
-                    <div class="font-bold text-emerald-950 uppercase tracking-wide">Madinah Hotel • <span class="text-emerald-800">${pkg.madinahHotel.distance}</span></div>
-                    <div class="text-slate-700 font-medium mt-0.5">${pkg.madinahHotel.name}</div>
-                    <div class="text-emerald-700 text-[11px] mt-0.5 font-semibold">${pkg.madinahHotel.shuttle}</div>
+                    <div class="font-bold text-emerald-950 uppercase tracking-wide">${ui.madinahHotel || "Madinah Hotel"} • <span class="text-emerald-800">${viewPkg.madinahHotel.distance}</span></div>
+                    <div class="text-slate-700 font-medium mt-0.5">${viewPkg.madinahHotel.name}</div>
+                    <div class="text-emerald-700 text-[11px] mt-0.5 font-semibold">${viewPkg.madinahHotel.shuttle}</div>
                   </div>
                 </div>
               </div>
@@ -351,20 +391,20 @@
               <!-- Quick Logistics Summary -->
               <div class="grid grid-cols-1 gap-1.5 pt-1 text-xs text-slate-700">
                 <div class="flex items-start gap-2">
-                  <span class="text-emerald-700 font-bold shrink-0">✈️ Flights:</span>
-                  <span class="font-medium">${pkg.flights}</span>
+                  <span class="text-emerald-700 font-bold shrink-0">${ui.flightsLabel || "✈️ Flights:"}</span>
+                  <span class="font-medium">${viewPkg.flights}</span>
                 </div>
                 <div class="flex items-start gap-2">
-                  <span class="text-emerald-700 font-bold shrink-0">🍛 Meals:</span>
-                  <span class="font-medium">${pkg.meals}</span>
+                  <span class="text-emerald-700 font-bold shrink-0">${ui.mealsLabel || "🍛 Meals:"}</span>
+                  <span class="font-medium">${viewPkg.meals}</span>
                 </div>
               </div>
 
               <!-- Inclusions Checklist -->
               <div class="pt-3 border-t border-slate-100">
-                <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Package Inclusions:</div>
+                <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">${ui.inclusionsHeader || "Package Inclusions:"}</div>
                 <ul class="space-y-1.5 text-xs text-slate-700">
-                  ${pkg.highlights
+                  ${viewPkg.highlights
                     .map(
                       (item) => `
                     <li class="flex items-start gap-2">
@@ -386,11 +426,11 @@
             <a id="wa-btn-${pkg.id}" href="${defaultWhatsAppMsg}" target="_blank" rel="noopener noreferrer"
                class="w-full py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#1DA851] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-sm transition cursor-pointer">
               <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/></svg>
-              <span>Enquire on WhatsApp</span>
+              <span>${ui.btnEnquireWa || "Enquire on WhatsApp"}</span>
             </a>
             <button type="button" data-select-calc="${pkg.id}"
                class="w-full py-2.5 px-4 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-900 font-semibold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer">
-              <span>Calculate Family Total for This Package</span>
+              <span>${ui.btnCalcTotal || "Calculate Family Total for This Package"}</span>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
             </button>
           </div>
@@ -521,10 +561,11 @@
     }
 
     if (descEl) {
+      const ui = (window.UMMAT_PACKAGES_I18N?.ui && (window.UMMAT_PACKAGES_I18N.ui[currentLang] || window.UMMAT_PACKAGES_I18N.ui.en)) || {};
       const descMap = {
-        quad: "4 Beds / Room",
-        triple: "3 Beds / Room",
-        double: "2 Beds / Private"
+        quad: ui.bedsQuad || "4 Beds / Room",
+        triple: ui.bedsTriple || "3 Beds / Room",
+        double: ui.bedsDouble || "2 Beds / Room"
       };
       descEl.textContent = descMap[sharingKey] || "";
     }
@@ -535,6 +576,93 @@
   }
 
   // Initialize and bind Interactive Umrah Cost Estimator
+    // Populate Cost Estimator Dropdowns with full localization
+  function populateCostEstimatorDropdowns() {
+    const pkgSelect = document.getElementById("calc-package");
+    const sharingSelect = document.getElementById("calc-sharing");
+    const citySelect = document.getElementById("calc-city");
+    const monthSelect = document.getElementById("calc-month");
+
+    if (!pkgSelect || !sharingSelect || !citySelect || !monthSelect) return;
+
+    const savedPkg = pkgSelect.value;
+    const savedSharing = sharingSelect.value;
+    const savedCity = citySelect.value;
+    const savedMonthIdx = monthSelect.selectedIndex >= 0 ? monthSelect.selectedIndex : 0;
+
+    const pkgI18n = window.UMMAT_PACKAGES_I18N?.packages?.[currentLang] || {};
+    const estOpts = getTranslation("estimatorOptions") || {};
+    const sharingLabels = estOpts.sharing || {};
+    const cityLabels = estOpts.cities || {};
+    const monthsList = estOpts.months || CONFIG.departureMonths;
+    const est = getTranslation("estimator") || {};
+    const fromWord = est.fromPrefix || "From";
+
+    pkgSelect.innerHTML = CONFIG.umrahPackages
+      .map((pkg) => {
+        const title = (pkgI18n[pkg.id] && pkgI18n[pkg.id].title) || pkg.title;
+        return `<option value="${pkg.id}">${title} (${fromWord} ${formatINR(pkg.basePriceQuad)})</option>`;
+      })
+      .join("");
+    if (savedPkg) pkgSelect.value = savedPkg;
+
+    sharingSelect.innerHTML = Object.values(CONFIG.sharingTypes)
+      .map((sh) => {
+        const label = sharingLabels[sh.id] || sh.label;
+        const addonTxt = sh.priceAddon > 0 ? `(+${formatINR(sh.priceAddon)}${est.perPersonSuffix || "/person"})` : (est.baseRate || "(Base Rate)");
+        return `<option value="${sh.id}">${label} ${addonTxt}</option>`;
+      })
+      .join("");
+    if (savedSharing) sharingSelect.value = savedSharing;
+
+    citySelect.innerHTML = CONFIG.departureCities
+      .map((city) => {
+        const label = cityLabels[city.id] || `${city.name} — ${city.airline}${city.addon > 0 ? " (+" + formatINR(city.addon) + ")" : ""}`;
+        return `<option value="${city.id}">${label}</option>`;
+      })
+      .join("");
+    if (savedCity) citySelect.value = savedCity;
+
+    monthSelect.innerHTML = monthsList
+      .map((m) => `<option value="${m}">${m}</option>`)
+      .join("");
+    monthSelect.selectedIndex = (savedMonthIdx >= 0 && savedMonthIdx < monthSelect.options.length) ? savedMonthIdx : 0;
+  }
+
+  // Populate Callback Form Dropdowns with full localization
+  function populateCallbackFormDropdowns() {
+    const srvSelect = document.getElementById("cb-service");
+    const plgSelect = document.getElementById("cb-pilgrims");
+    if (!srvSelect || !plgSelect) return;
+
+    const savedSrvIdx = srvSelect.selectedIndex >= 0 ? srvSelect.selectedIndex : 0;
+    const savedPlgIdx = plgSelect.selectedIndex >= 0 ? plgSelect.selectedIndex : 2;
+
+    const contactData = getTranslation("contact") || {};
+    const pkgList = contactData.cbPackages || [
+      "Super Deluxe Umrah Package (₹95,000)",
+      "Economy Umrah Package (₹78,000)",
+      "Royal 5-Star Haram View Umrah (₹1,38,000)",
+      "Ramadan Special Umrah Package (₹1,15,000)",
+      "Hajj 2027 Package (₹7,50,000)",
+      "Custom Private Family Umrah"
+    ];
+
+    const plgList = contactData.cbPilgrims || [
+      "1 Person",
+      "2 Persons (Couple)",
+      "3 – 4 Family Members",
+      "5 – 9 Family Members",
+      "10+ Group / Jamat"
+    ];
+
+    srvSelect.innerHTML = pkgList.map((p) => `<option value="${p}">${p}</option>`).join("");
+    plgSelect.innerHTML = plgList.map((p) => `<option value="${p}">${p}</option>`).join("");
+
+    if (savedSrvIdx < srvSelect.options.length) srvSelect.selectedIndex = savedSrvIdx;
+    if (savedPlgIdx < plgSelect.options.length) plgSelect.selectedIndex = savedPlgIdx;
+  }
+
   function initCostEstimator() {
     const pkgSelect = document.getElementById("calc-package");
     const sharingSelect = document.getElementById("calc-sharing");
@@ -546,37 +674,8 @@
 
     if (!pkgSelect || !sharingSelect || !citySelect || !monthSelect) return;
 
-    // Populate dropdowns from CONFIG
-    pkgSelect.innerHTML = CONFIG.umrahPackages
-      .map(
-        (pkg) =>
-          `<option value="${pkg.id}" ${pkg.featured ? "selected" : ""}>${pkg.title} (From ${formatINR(
-            pkg.basePriceQuad
-          )})</option>`
-      )
-      .join("");
-
-    sharingSelect.innerHTML = Object.values(CONFIG.sharingTypes)
-      .map(
-        (sh) =>
-          `<option value="${sh.id}">${sh.label} ${
-            sh.priceAddon > 0 ? "(+" + formatINR(sh.priceAddon) + "/person)" : "(Base Rate)"
-          }</option>`
-      )
-      .join("");
-
-    citySelect.innerHTML = CONFIG.departureCities
-      .map(
-        (city) =>
-          `<option value="${city.id}">${city.name} — ${city.airline}${
-            city.addon > 0 ? " (+" + formatINR(city.addon) + ")" : ""
-          }</option>`
-      )
-      .join("");
-
-    monthSelect.innerHTML = CONFIG.departureMonths
-      .map((m) => `<option value="${m}">${m}</option>`)
-      .join("");
+    // Populate dropdowns with localization
+    populateCostEstimatorDropdowns();
 
     // Bind stepper buttons (+/-) for adults, children, infants
     document.querySelectorAll("[data-stepper-target]").forEach((btn) => {
@@ -630,23 +729,34 @@
     const totalPilgrims = adults + children + infants;
     const advanceAmount = (adults + children) * 20000;
 
-    // Update UI summary elements
+    // Update UI summary elements with full localization
     const setElText = (id, txt) => {
       const el = document.getElementById(id);
       if (el) el.textContent = txt;
     };
 
-    setElText("est-pkg-name", pkg.title);
-    setElText("est-pkg-duration", `${pkg.duration} • ${sharing.label}`);
-    setElText("est-city-name", `${city.name} (${city.airline})`);
-    setElText("est-adult-line", `${adults} Adult${adults > 1 ? "s" : ""} × ${formatINR(perAdultRate)}`);
+    const est = getTranslation("estimator") || {};
+    const pkgI18n = window.UMMAT_PACKAGES_I18N?.packages?.[currentLang] || {};
+    const locPkgTitle = (pkgI18n[pkg.id] && pkgI18n[pkg.id].title) || pkg.title;
+    const locDuration = (pkgI18n[pkg.id] && pkgI18n[pkg.id].duration) || pkg.duration;
+    const estOpts = getTranslation("estimatorOptions") || {};
+    const locSharingLabel = (estOpts.sharing && estOpts.sharing[sharingId]) || sharing.label;
+    const locCityLabel = (estOpts.cities && estOpts.cities[cityId]) || `${city.name} (${city.airline})`;
+
+    setElText("est-pkg-name", locPkgTitle);
+    setElText("est-pkg-duration", `${locDuration} • ${locSharingLabel}`);
+    setElText("est-city-name", locCityLabel);
+
+    const adultWord = adults > 1 ? (est.adultPlural || "Adults") : (est.adult || "Adult");
+    setElText("est-adult-line", `${adults} ${adultWord} × ${formatINR(perAdultRate)}`);
     setElText("est-adult-total", formatINR(adultsTotal));
 
     const childRow = document.getElementById("est-child-row");
     if (childRow) {
       if (children > 0) {
         childRow.classList.remove("hidden");
-        setElText("est-child-line", `${children} Child${children > 1 ? "ren" : ""} (2–11 yrs) × ${formatINR(perChildRate)}`);
+        const childWord = children > 1 ? (est.childPlural || "Children") : (est.child || "Child");
+        setElText("est-child-line", `${children} ${childWord} (2–11 yrs) × ${formatINR(perChildRate)}`);
         setElText("est-child-total", formatINR(childrenTotal));
       } else {
         childRow.classList.add("hidden");
@@ -657,7 +767,8 @@
     if (infantRow) {
       if (infants > 0) {
         infantRow.classList.remove("hidden");
-        setElText("est-infant-line", `${infants} Infant${infants > 1 ? "s" : ""} (<2 yrs) × ${formatINR(perInfantRate)}`);
+        const infantWord = infants > 1 ? (est.infantPlural || "Infants") : (est.infant || "Infant");
+        setElText("est-infant-line", `${infants} ${infantWord} (<2 yrs) × ${formatINR(perInfantRate)}`);
         setElText("est-infant-total", formatINR(infantsTotal));
       } else {
         infantRow.classList.add("hidden");
@@ -666,13 +777,15 @@
 
     setElText("est-grand-total", formatINR(grandTotal));
     setElText("est-booking-advance", formatINR(advanceAmount));
-    setElText("est-pilgrim-count", `${totalPilgrims} Pilgrim${totalPilgrims > 1 ? "s" : ""}`);
+    const pilgrimWord = totalPilgrims > 1 ? (est.pilgrimPlural || "Pilgrims") : (est.pilgrim || "Pilgrim");
+    setElText("est-pilgrim-count", `${totalPilgrims} ${pilgrimWord}`);
 
-    // Group discount hint for 5+ adults
+    // Group discount hint for 4+ pilgrims
     const groupHint = document.getElementById("est-group-discount-badge");
     if (groupHint) {
       if (adults + children >= 4) {
         groupHint.classList.remove("hidden");
+        if (est.groupDiscountText) groupHint.innerHTML = est.groupDiscountText;
       } else {
         groupHint.classList.add("hidden");
       }
@@ -735,10 +848,10 @@
     }
   }
 
-  // Render Hajj & Custom Services Cards
+  // Render Hajj & Custom Services Cards (with full localization)
   function renderSpecialServices() {
     const container = document.getElementById("special-services-grid");
-    if (!container || !Array.isArray(CONFIG.specialServices)) return;
+    if (!container) return;
 
     const iconMap = {
       kaaba: "🕋",
@@ -746,9 +859,13 @@
       globe: "🕌"
     };
 
-    container.innerHTML = CONFIG.specialServices
+    const srvList = getTranslation("specialServicesList") || CONFIG.specialServices || [];
+    const btnEnquireText = getTranslation("specialServices.btnEnquire") || "Enquire Now";
+
+    container.innerHTML = srvList
       .map((srv) => {
-        const waUrl = buildWhatsAppURL(srv.whatsappPrompt);
+        const defaultPrompt = CONFIG.specialServices.find((s) => s.id === srv.id)?.whatsappPrompt || srv.title;
+        const waUrl = buildWhatsAppURL(srv.whatsappPrompt || defaultPrompt);
         return `
         <div class="bg-white rounded-2xl p-6 md:p-7 border border-amber-500/25 shadow-sm hover:shadow-xl transition flex flex-col justify-between">
           <div>
@@ -764,7 +881,7 @@
             <p class="text-sm text-slate-600 mt-2 leading-relaxed">${srv.description}</p>
 
             <ul class="mt-4 pt-4 border-t border-slate-100 space-y-2 text-xs text-slate-700">
-              ${srv.features
+              ${(srv.features || [])
                 .map(
                   (f) => `
                 <li class="flex items-start gap-2">
@@ -781,7 +898,7 @@
             <span class="text-xs font-semibold text-emerald-800">${srv.startingHint}</span>
             <a href="${waUrl}" target="_blank" rel="noopener noreferrer"
                class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-amber-300 font-bold text-xs transition shrink-0">
-              <span>Enquire Now</span>
+              <span>${btnEnquireText}</span>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
             </a>
           </div>
@@ -791,11 +908,12 @@
       .join("");
   }
 
-  // Render Required Documents & FAQs
+  // Render Required Documents & FAQs (with full localization)
   function renderDocumentsAndFAQs() {
     const docsContainer = document.getElementById("documents-grid");
-    if (docsContainer && Array.isArray(CONFIG.documentsRequired)) {
-      docsContainer.innerHTML = CONFIG.documentsRequired
+    const docsList = getTranslation("documentsList") || CONFIG.documentsRequired || [];
+    if (docsContainer && Array.isArray(docsList)) {
+      docsContainer.innerHTML = docsList
         .map(
           (doc, idx) => `
           <div class="bg-white p-5 rounded-2xl border border-emerald-900/10 shadow-sm flex items-start gap-4">
@@ -813,8 +931,9 @@
     }
 
     const faqContainer = document.getElementById("faq-accordion");
-    if (faqContainer && Array.isArray(CONFIG.faqs)) {
-      faqContainer.innerHTML = CONFIG.faqs
+    const faqsList = getTranslation("faqsList") || CONFIG.faqs || [];
+    if (faqContainer && Array.isArray(faqsList)) {
+      faqContainer.innerHTML = faqsList
         .map(
           (item, index) => `
           <div class="faq-item ${index === 0 ? "open" : ""} bg-white rounded-2xl border border-slate-200/90 overflow-hidden transition">
@@ -974,6 +1093,7 @@
     hydrateAgencyMetadata();
     renderUmrahPackages();
     initCostEstimator();
+    populateCallbackFormDropdowns();
     renderSpecialServices();
     renderDocumentsAndFAQs();
     initCallbackForm();
